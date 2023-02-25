@@ -1,0 +1,132 @@
+<section class="oe_container oe_dark">
+    <div class="col-md-12">
+        <h2 class="oe_slogan" style="font-size: 30px;color:black;"><b>Product Form Pricelist: Percent Change</b></h2>
+    </div>
+</section>
+
+<section class="oe_container oe_dark" style="background-color: rgba(200, 200, 200, 0.14); padding-top: 1px;">
+
+    <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
+        <b style="margin-left:2.6%;font-size: 1.2em;">Module Features:</b><br/>
+    </h2>
+
+    <div>
+        <ul style="font-family:'Lato'; font-size: 1.2em;">
+            <li>
+                Full access to product pricelist rule form-view by product form-view.
+            </li>
+            <br/>
+            <li>
+                A computed field 'Selling Price' shows the selling price for active product template or variant
+                depending on provided parameters
+            </li>
+            <br/>
+            <li>
+                <b>Percent change</b>: you will be able to click <b>"Set Price Discount %"</b> button
+                to compute the percent change based on <b>Selling Price</b> (recomputed on button click) and a <b>User
+                Input</b> which will represent
+                the new selling price. The result will be stored in <b>Price Discount</b> field or <b>Percent Price</b>
+                depending on "Compute Price" parameter.
+            </li>
+        </ul>
+    </div>
+
+    <section class="oe_container oe_dark">
+        <div style="display:flex;justify-content: center;">
+            <img src="demo_based_on_pricelist.png" width="95%"/>
+        </div>
+        <br/>
+        <div style="margin-left:2.6%;font-size: 1.2em;">
+            <b>Selling Price Computation:</b> In this example we set a rule for a Storage Box that cost &euro;5.
+            We apply a rule based on another pricelist outcome, which applies a markup of 200%. When we set
+            the pricelist dependency the +200% outcome will be applied, so the field "Selling Price" will be computed
+            to &euro;15. Then we set an additional 5% increment on the outcome for this product rule, so the price will
+            now be recomputed at &euro;15.75.
+        </div>
+    </section>
+
+    <br/>
+
+    <section class="oe_container oe_dark">
+        <div style="display:flex;justify-content: center;">
+            <img src="demo_set_percent_price_variant.png" width="80%"/>
+        </div>
+        <br/>
+        <div style="margin-left:2.6%;font-size: 1.2em;">
+            <b>Percent Change Computation:</b> we want to set the percentage Price Discount after we apply the +200% pricelist
+            on a product variant that we want to sell for &euro;19. We select Compute price "Formula" and "Based On
+            Other Pricelist" and select the Office Furniture: +200% Pricelist. The pricelist outcome is applied on the
+            product category which correspond to the product variant category, so the Selling Price will be computed to
+            &euro;15. We now provide an input to compute the Price Discount that we need to apply in order to sell the product
+            at &euro;19, and click on "Set Price Discount". Price Discount will be computed and stored to -26.67%.
+        </div>
+    </section>
+
+    <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
+        <b style="margin-left:2.6%;font-size: 1.2em;">Other info</b><br/>
+    </h2>
+
+    <div>
+        <ul style="font-family:'Lato'; font-size: 1.2em;">
+            <li>
+                This module extends <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist" target="_blank">Product
+                Form Pricelist</a> from <a href="https://github.com/OCA/product-attribute/tree/14.0" target="_blank">
+                OCA Product Attribute repository</a> (you will need it in your Odoo instance to be able to install this module).
+            </li>
+            <br/>
+            <li>
+                <b>Product Variants:</b> product variant workflow has been taken into consideration in the developement
+                process
+                when it was possible so this module should provide a decent base for compatibility with product variant
+                workflow.
+                Despite that, depending on what you need to do it might require some extra implementation to be
+                effective.
+            </li>
+            <br/>
+            <li>
+                If you install <a
+                    href="https://github.com/OCA/product-attribute/tree/14.0/product_pricelist_supplierinfo" target="_blank">
+                Product Pricelist Supplierinfo
+            </a>, and configure a "Based On - Prices based on supplier info" rule, selling price for retrieved vendor
+                will be
+                computed but it's not a full impelemntation. Might be improved in future but there is no plan for it at
+                the moment.
+            </li>
+        </ul>
+    </div>
+
+    <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
+        <b style="margin-left:2.6%;font-size: 1.2em;">Technical info</b><br/>
+    </h2>
+
+    <div>
+        <ul style="font-family:'Lato'; font-size: 1.2em;">
+            <li><b>Performance:</b> this module makes use of computed field which are not stored by default. This allows
+                smooth
+                installation process and avoid to use database space, but leave computed fields as non-stored might be
+                impacting
+                a lot on performance, expecially if you have a lot of pricelist rules for specific products. If you plan
+                to use
+                or try this module you should consider to set store=True on all computed fields that are set by
+                _compute_product_pricelist_selling_price() function.
+            </li>
+        </ul>
+    </div>
+
+    <hr style="width: 100%;height: 4px;background: grey;margin: 0px 0px;">
+    <hr style="width: 100%;height: 4px;background: black;margin: 0px 0px;">
+    <section class="oe_container oe_dark">
+        <div class="oe_row ">
+            <div class="oe_slogan text-center">
+                <div>
+                    <h3>If you have any queries or doubt you can contact me on:</h3>
+                    <br>
+                    <h3>Email: <p style="font-size:1.2em;">francescobl.lavoro@gmail.com</p> <br></h3>
+                    <h3>Discord: <p style="font-size:1.2em;">Francesco Ballerini#6462</p></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr style="width: 100%;height: 4px;background: black;margin: 0px 0px;">
+    <hr style="width: 100%;height: 4px;background: grey;margin: 0px 0px;">
+</section>
