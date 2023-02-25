@@ -41,7 +41,7 @@ Module Features
             
             
 
-OTHER INFO
+Other info
 ---------------
 * This module extends [product_form_pricelist](https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist) from
   [OCA Product Attribute Repository](https://github.com/OCA/product-attribute/tree/14.0), so you will need it in your Odoo instance to be able to install this module.
