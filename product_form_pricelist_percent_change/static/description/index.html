@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <section class="oe_container oe_dark">
     <div class="col-md-12">
         <h2 class="oe_slogan" style="font-size: 30px;color:black;"><b>Product Form Pricelist: Percent Change</b></h2>
@@ -7,71 +8,186 @@
 <section class="oe_container oe_dark" style="background-color: rgba(200, 200, 200, 0.14); padding-top: 1px;">
 
     <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
-        <b style="margin-left:2.6%;font-size: 1.2em;">Module Features:</b><br/>
+        <b style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">Module Features:</b><br/>
     </h2>
 
     <div>
         <ul style="font-family:'Lato'; font-size: 1.2em;">
             <li>
-                Full access to product pricelist rule form-view by product form-view.
+                Full access to product pricelist rule form-view by product form-view
             </li>
             <br/>
             <li>
                 A computed field 'Selling Price' shows the selling price for active product template or variant
-                depending on provided parameters
+                depending on provided parameters set on the product pricelist-rule
             </li>
             <br/>
             <li>
-                <b>Percent change</b>: you will be able to click <b>"Set Price Discount %"</b> button
-                to compute the percent change based on <b>Selling Price</b> (recomputed on button click) and a <b>User
-                Input</b> which will represent
-                the new selling price. The result will be stored in <b>Price Discount</b> field or <b>Percent Price</b>
-                depending on "Compute Price" parameter.
+                <b>Percent change</b>: if you need to set the percentage discount but you are aware of selling price
+                instead of
+                percentage value,
+                with this module you can directly provide the desired Selling Price in a <b>user-input monetary
+                field</b>,
+                then click the button <b>Set Price Discount %</b> and the percentage discount field will be calculated
+                and
+                set for you by applying the Percentage Change formula:<br/>
+                <br/>
+                <div style="text-align:center;">
+                    <i>``(User Input - SP) / SP x 100´´</i>
+                </div>
+                <br/>
+                where <b>SP is Selling Price recomputed on click</b> depending on the chosen <b>'Based On'</b>
+                parameter (product sales price, cost, other pricelist...)
+
             </li>
         </ul>
+
     </div>
 
+    <br/>
+    <hr style="width: 100%;background: grey;margin: 0px 0px;">
+
     <section class="oe_container oe_dark">
-        <div style="display:flex;justify-content: center;">
-            <img src="demo_based_on_pricelist.png" width="95%"/>
+
+        <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
+            <b style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">Try Module:</b><br/>
+        </h2>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            The module is available at OCA runbot from this
+            <a href="https://github.com/OCA/product-attribute/pull/1278">Pull Request</a>
         </div>
+
         <br/>
-        <div style="margin-left:2.6%;font-size: 1.2em;">
-            <b>Selling Price Computation:</b> In this example we set a rule for a Storage Box that cost &euro;5.
-            We apply a rule based on another pricelist outcome, which applies a markup of 200%. When we set
-            the pricelist dependency the +200% outcome will be applied, so the field "Selling Price" will be computed
-            to &euro;15. Then we set an additional 5% increment on the outcome for this product rule, so the price will
-            now be recomputed at &euro;15.75.
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>Navigate to the bottom of the page and click on <b>Details</b>:</p>
+            <img src="runboat_1.png" width="50%"/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>Check the build state: press <b>Start</b> and wait for <b>Started</b> status of the instance</p>
+            <img src="runboat_2.png" width="50%"/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>Click on <b>Live</b> when it's ready. Use 'admin' as username and password</p>
+            <p>You can click on <b>reset</b> to reboot and have a clean instance</p>
+            <img src="runboat_3.png" width="50%"/>
         </div>
     </section>
 
     <br/>
 
     <section class="oe_container oe_dark">
-        <div style="display:flex;justify-content: center;">
-            <img src="demo_set_percent_price_variant.png" width="80%"/>
+        <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
+            <b style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">Simple Use Case...</b>
+        </h2>
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>Be sure that you enabled <b>Advanced Pricelist Rules</b> in <b>Settings Menu</b></p>
+            <br/>
+            <img src="settings_1.png" width="80%"/>
         </div>
+
         <br/>
-        <div style="margin-left:2.6%;font-size: 1.2em;">
-            <b>Percent Change Computation:</b> we want to set the percentage Price Discount after we apply the +200% pricelist
-            on a product variant that we want to sell for &euro;19. We select Compute price "Formula" and "Based On
-            Other Pricelist" and select the Office Furniture: +200% Pricelist. The pricelist outcome is applied on the
-            product category which correspond to the product variant category, so the Selling Price will be computed to
-            &euro;15. We now provide an input to compute the Price Discount that we need to apply in order to sell the product
-            at &euro;19, and click on "Set Price Discount". Price Discount will be computed and stored to -26.67%.
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p><b>Choose a product</b>, we will use a pricelist rule based on product <b>Cost</b></p>
+            <p>You might need to add User Admin to 'Access to product costs' group to see product cost</p>
+            <br/>
+            <img src="settings_2.png" width="80%"/>
+            <img src="workflow_1.png" width="80%"/>
         </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>In the product form-view check for <b>Sales Page</b> and scroll down to the <b>Pricelist Rules</b> table,
+                this is a shortcut to define pricelist-rules at product level from the product form-view.
+                <br/>
+            <p>By clicking on 'Add Line'
+                you will be able to configure a pricelist rule for this product.</p>
+            <br/>
+            <img src="workflow_2.png" width="80%"/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>In the new <b>Computed Selling Price</b> section, Selling price is recomputing
+                every time a parameter is changed showing a price simulation for active product.</p>
+            <i>Note that you will have to manually define the product-pricelist relationship, but the 'apply on
+                level' and
+                'product id' parameters are already defined on the rule.</i>
+            <br/>
+            <br/>
+            <img src="workflow_3.png" width="80%"/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <b>We want to sell product (which costs $1000) at $1450.
+            </b>
+            <p>Provide the final selling price.</p>
+            <br/>
+            <img src="workflow_4.png" width="80%"/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>You can see <b>Price Discount</b> will be properly set at -45%, and the <b>Computed Selling Price</b>
+                shows the new Selling Price accordingly to pricelist-rule parameters.</p>
+            <p>Save and close record to register the new <b>Price Discount</b>.</p>
+            <i>The user input get restored at $0.00 when operation is complete.
+            </i>
+            <br/>
+            <br/>
+            <img src="workflow_5.png" width="80%"/>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">
+            <p>Some <b>improvements</b> are made on the pricelist rules <b>tree-view</b>, now it is possible to show
+                columns
+                for <b>rule parameters</b> like <b>Based On</b>, <b>Price Discount</b>, <b>Computed Selling Price</b>
+                (only for rules applied
+                at product level) and so on.</p>
+            <br/>
+            <br/>
+            <img src="workflow_6.png" width="80%"/>
+        </div>
+
     </section>
 
+    <br/>
+
     <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
-        <b style="margin-left:2.6%;font-size: 1.2em;">Other info</b><br/>
+        <b style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">Other info</b><br/>
     </h2>
 
     <div>
         <ul style="font-family:'Lato'; font-size: 1.2em;">
             <li>
-                This module extends <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist" target="_blank">Product
+                This module extends <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist"
+                                       target="_blank">Product
                 Form Pricelist</a> from <a href="https://github.com/OCA/product-attribute/tree/14.0" target="_blank">
-                OCA Product Attribute repository</a> (you will need it in your Odoo instance to be able to install this module).
+                OCA Product Attribute repository</a> (you will need it in your Odoo instance to be able to install this
+                module).
             </li>
             <br/>
             <li>
@@ -84,31 +200,32 @@
             </li>
             <br/>
             <li>
-                If you install <a
-                    href="https://github.com/OCA/product-attribute/tree/14.0/product_pricelist_supplierinfo" target="_blank">
-                Product Pricelist Supplierinfo
-            </a>, and configure a "Based On - Prices based on supplier info" rule, selling price for retrieved vendor
-                will be
-                computed but it's not a full impelemntation. Might be improved in future but there is no plan for it at
-                the moment.
+                All the listed features supports pricelist based on <b>Other Pricelist</b>.
             </li>
         </ul>
     </div>
 
     <h2 class="oe_slogan" style="text-align:left; font-size: 1.2em; line-height: 0em; opacity: unset !important">
-        <b style="margin-left:2.6%;font-size: 1.2em;">Technical info</b><br/>
+        <b style="margin-left:2.6%;margin-right:2.6%;font-size: 1.2em;">Technical info</b><br/>
     </h2>
 
     <div>
         <ul style="font-family:'Lato'; font-size: 1.2em;">
             <li><b>Performance:</b> this module makes use of computed field which are not stored by default. This allows
                 smooth
-                installation process and avoid to use database space, but leave computed fields as non-stored might be
-                impacting
-                a lot on performance, expecially if you have a lot of pricelist rules for specific products. If you plan
-                to use
-                or try this module you should consider to set store=True on all computed fields that are set by
-                _compute_product_pricelist_selling_price() function.
+                installation process and avoid to use database space, but might impact on performance if you have a lot
+                of pricelist-rules for every product. You can store computed fields, but keep in mind that recursive
+                pricelist selling price will not be recomputed if fields are stored. This means that if you have a
+                situation
+                where
+                <br/>
+                <br/>
+                <div style="text-align:center;">Pricelist C depending on > Pricelist B depending on > Pricelist A</div>
+                <br/>
+
+                and you change a rule parameter for pricelist A,
+                "pricelist B Selling Price" will be recomputed but pricelist C will not.
+                <b>This will not be an issue, if fields are not stored.</b>
             </li>
         </ul>
     </div>
@@ -116,9 +233,10 @@
     <hr style="width: 100%;height: 4px;background: grey;margin: 0px 0px;">
     <hr style="width: 100%;height: 4px;background: black;margin: 0px 0px;">
     <section class="oe_container oe_dark">
-        <div class="oe_row ">
+        <div class="oe_row">
             <div class="oe_slogan text-center">
                 <div>
+                    <br/>
                     <h3>If you have any queries or doubt you can contact me on:</h3>
                     <br>
                     <h3>Email: <p style="font-size:1.2em;">francescobl.lavoro@gmail.com</p> <br></h3>
