@@ -1,75 +1,142 @@
-<h2>Product Form Pricelist: Percent Change</h2>
-
-Module Features
----------------
-
-- Full access to product pricelist rule form-view by product form-view.
-
-
--  A computed field 'Selling Price' shows the selling price for active product template or variant depending on provided parameters
-
-
-- <b>Percent change</b>: click button <b>"Set Price Discount %"</b>
-    to compute the percent change based on <b>Selling Price</b> (recomputed on button click) and a <b>User
-    Input</b> which will represent the new selling price. Percent change formula:
-
-
-     (user input - selling price computed) / selling price computed x 100
- 
-
-  The result will be stored in <b>Price Discount</b> field or <b>Percent Price</b>
-  depending on "Compute Price" parameter.
-
-  Rule based on other pricelist outcome are supported:
-
-![alt text](./static/description/demo_based_on_pricelist.png)
-
-<b>Selling Price Computation:</b> In this example we set a rule for a Storage Box that cost &euro;5.
-            We apply a rule based on another pricelist outcome, which applies a markup of 200%. When we set
-            the pricelist dependency the +200% outcome will be applied, so the field "Selling Price" will be computed
-            to &euro;15. Then we set an additional 5% increment on the outcome for this product rule, so the price will
-            now be recomputed at &euro;15.75.
-
-![alt text](./static/description/demo_set_percent_price_variant.png)
-
-<b>Percent Change Computation:</b> we want to set the percentage Price Discount after we apply the +200% pricelist
-            on a product variant that we want to sell for &euro;19. We select Compute price "Formula" and "Based On
-            Other Pricelist" and select the Office Furniture: +200% Pricelist. The pricelist outcome is applied on the
-            product category which correspond to the product variant category, so the Selling Price will be computed to
-            &euro;15. We now provide an input to compute the Price Discount that we need to apply in order to sell the 
-            product at &euro;19, and click on "Set Price Discount". Price Discount will be computed and stored to -26.67%.
-            
-            
-
-Other info
----------------
-* This module extends [product_form_pricelist](https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist) from
-  [OCA Product Attribute Repository](https://github.com/OCA/product-attribute/tree/14.0), so you will need it in your Odoo instance to be able to install this module.
+<h1>Module Features</h1>
+<ul style="font-size: 1.2em;">
+            <li>
+                Full access to product pricelist rule form-view by product form-view
+            </li>
+            <br/>
+            <li>
+                A computed field 'Selling Price' shows the selling price for active product template or variant
+                depending on provided parameters set on the product pricelist-rule
+            </li>
+            <br/>
+            <li>
+                <b>Percent change</b>: if you need to set the percentage discount but you are aware of selling price
+                instead of
+                percentage value,
+                with this module you can directly provide the desired Selling Price in a <b>user-input monetary
+                field</b>,
+                then click the button <b>Set Price Discount %</b> and the percentage discount field will be calculated
+                and
+                set for you by applying the Percentage Change formula:<br/>
+                <br/>
+                <div style="text-align:center;">
+                    <i>``(User Input - SP) / SP x 100´´</i>
+                </div>
+                <br/>
+                where <b>SP is Selling Price recomputed on click</b> depending on the chosen <b>'Based On'</b>
+                parameter (product sales price, cost, other pricelist...)
+            </li>
+</ul>
 
 
-*  <b>Product Variants:</b> product variant workflow has been taken into consideration in the developement process when it was possible so this module should provide
-   a decent base for compatibility with product variant workflow. Despite that, depending on what you need to do it might require some extra implementation to be
-   effective.
+**************
+<div style="font-size: 1.2em;">
 
 
-* If you install [Product Proicelist SupplierInfo](https://github.com/OCA/product-attribute/tree/14.0/product_pricelist_supplierinfo) and configure a
-  "Based On - Prices based on supplier info" rule, selling price for retrieved vendor will be computed but it's not a full impelemntation.
-  Might be improved in future but there is no plan for it at  the moment.
-                
-  
-Technical info
----------------
+<h3>Simple Use Case...</h3>
+<p>Be sure that you enabled <b>Advanced Pricelist Rules</b> in <b>Settings Menu</b></p>
 
-* <b>Performance:</b> this module makes use of computed field which are not stored by default. This allows smooth installation process
-    and avoid to use database space, but leave computed fields as non-stored might be impacting a lot on performance, expecially if you
-    have a lot of pricelist rules for specific products. If you plan to use or try this module you should consider to set store=True on 
-    all computed fields that are set by _compute_product_pricelist_selling_price() function.
+![image](static/description/settings_1.png)
 
-Contacts
----------------
+<p><b>Choose a product</b>, we will use a pricelist rule based on product <b>Cost</b></p>
+<p>You might need to add User Admin to 'Access to product costs' group to see product cost</p>
 
-If you have any queries or doubt you can contact me on:
+![image](static/description/settings_2.png)
+![image](static/description/workflow_1.png)
 
-* email: francescobl.lavoro@gmail.com
+<p>In the product form-view check for <b>Sales Page</b> and scroll down to the <b>Pricelist Rules</b> table,
+this is a shortcut to define pricelist-rules at product level from the product form-view.
+<br/>
+<p>By clicking on 'Add Line'
+you will be able to configure a pricelist rule for this product.</p>
 
-* discord: Francesco Ballerini#6462
+![image](static/description/workflow_2.png)
+
+<p>In the new <b>Computed Selling Price</b> section, Selling price is recomputing
+every time a parameter is changed showing a price simulation for active product.</p>
+<i>Note that you will have to manually define the product-pricelist relationship, but the 'apply on
+level' and
+'product id' parameters are already defined on the rule.</i>
+<br/>
+
+![image](static/description/workflow_3.png)
+
+<b>We want to sell product (which costs $1000) at $1450.
+</b>
+<p>Provide the final selling price.</p>
+
+![image](static/description/workflow_4.png)
+
+<p>You can see <b>Price Discount</b> will be properly set at -45%, and the <b>Computed Selling Price</b>
+shows the new Selling Price accordingly to pricelist-rule parameters.</p>
+<p>Save and close record to register the new <b>Price Discount</b>.</p>
+<i>The user input get restored at $0.00 when operation is complete.
+</i>
+<br/>
+
+![image](static/description/workflow_5.png)
+
+<p>Some <b>improvements</b> are made on the pricelist rules <b>tree-view</b>, now it is possible to show
+columns
+for <b>rule parameters</b> like <b>Based On</b>, <b>Price Discount</b>, <b>Computed Selling Price</b>
+(only for rules applied
+at product level) and so on.</p>
+
+
+![image](static/description/workflow_6.png)
+
+</div>
+
+**************
+
+<div style="font-size: 1.2em;">
+
+
+<h3>Other info</h3>
+
+<ul>
+    <li>
+        This module extends <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist"
+                               target="_blank">Product
+        Form Pricelist</a> from <a href="https://github.com/OCA/product-attribute/tree/14.0" target="_blank">
+        OCA Product Attribute repository</a> (you will need it in your Odoo instance to be able to install this
+        module).
+    </li>
+    <br/>
+    <li>
+        <b>Product Variants:</b> product variant workflow has been taken into consideration in the developement
+        process
+        when it was possible so this module should provide a decent base for compatibility with product variant
+        workflow.
+        Despite that, depending on what you need to do it might require some extra implementation to be
+        effective.
+    </li>
+    <br/>
+    <li>
+        All the listed features supports pricelist based on <b>Other Pricelist</b>.
+    </li>
+</ul>
+</div>
+
+************
+
+<div style="font-size: 1.2em;">
+<h3>Module Istance</h3>
+
+The module is available at OCA runbot from this <a href="https://github.com/OCA/product-attribute/pull/1278">Pull
+Request</a>
+
+Navigate to the bottom of the page and click on <b>Details</b>
+
+![image](static/description/runboat_1.png)
+
+<p>Check the build state: press <b>Start</b> and wait for <b>Started</b> status of the instance</p>
+
+![image](static/description/runboat_2.png)
+
+<p>Click on <b>Live</b> when it's ready. Use 'admin' as username and password.
+You can click on <b>reset</b> to reboot and have a clean instance</p>
+
+![image](static/description/runboat_3.png)
+
+</div>
