@@ -10,9 +10,9 @@ class ProductTemplate(models.Model):
 
     @api.model
     def fields_view_get(
-            self, view_id=None, view_type="form", toolbar=False, submenu=False
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
     ):
-        """ Adjust editable attribute depending on current pricelist setting:
+        """Adjust editable attribute depending on current pricelist setting:
 
         In product views:
 
@@ -55,7 +55,7 @@ class ProductProduct(models.Model):
 
     @api.model
     def fields_view_get(
-            self, view_id=None, view_type="form", toolbar=False, submenu=False
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
     ):
         # This has to be replicated otherwise logic will not be applied
         # to product.product views. This is a verbatim copy of template
