@@ -4,7 +4,7 @@
     'version': '14.0.0.0.1',
     'depends': [
         'base_location_nuts',
-        'base_location_geonames_import',
+        'base_location',
     ],
     'author': "Francesco Ballerini",
     'category': 'Partner Management',

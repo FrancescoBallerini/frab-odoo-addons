@@ -56,7 +56,7 @@
                                     country > level" filter. Once filter is applied, identify the country group of your
                                     interest, then click on country's level 4 group.
                                     Now make sure to remove the max records limit on the right side of the row (e.g. if you
-                                    see 80/120 click on it and set it to 120 to avoid filter out country's level 4 NUTS records).
+                                    see 1/80 click on it and set 1/120 to avoid filter out country's level 4 NUTS records).
                                     Then click on the first record, it will open the whole recordset of NUTS level 4 records for
                                     the country of your interest. Slide it one by one and sync each NUTS level 4 country's records
                                     to the respective "state_id". Create the 'state' if you miss it from your database.
