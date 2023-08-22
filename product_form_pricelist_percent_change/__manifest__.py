@@ -5,10 +5,10 @@
     "version": "14.0.0.0.1",
     "category": "Product",
     "summary": """
-        Enable percentage change computation in pricelist items.
+        Enable, on pricelists views, percentage change computation 
+        and price simulation (only for rules applied at product level).
     """,
-    "author": "Francesco Ballerini, Odoo Community Association (OCA)",
-    "website": "https://github.com/OCA/product-attribute",
+    "author": "Francesco Ballerini",
     "support": "francescobl.lavoro@gmail.com",
     "depends": ["product_form_pricelist", "base_view_inheritance_extension"],
     "data": [

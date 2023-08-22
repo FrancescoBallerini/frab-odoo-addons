@@ -62,14 +62,6 @@ class ProductPricelistItem(models.Model):
             if product._name == "product.template":
                 product = product.product_variant_id
 
-            # Hook to get params: these params will be propagated
-            # to _prepare_seller to manage multiple seller currency
-            # conversion before seller fetching, see:
-            # https://github.com/OCA/product-attribute/pull/1311
-            params = product._get_select_seller_params(
-                self, date=None, quantity=0.0, product_id=None
-            )
-
             # We prefer the usage of _compute_price() over _compute_price_rule()
             # (or other method that will be called on ProductPricelist) because
             # it's the only way to have responsive UI (otherwise UI will update
@@ -80,9 +72,7 @@ class ProductPricelistItem(models.Model):
             # order to provide a responsive UI and give consistent results we
             # have to call _select_seller into _compute_price
 
-            seller_price = self._fetch_supplierinfo_price(
-                product=product, params=params
-            )
+            seller_price = self._fetch_supplierinfo_price(product=product)
 
             # _compute_price(): UI responsive on @api.depends
             product_price = self._compute_price(
@@ -118,20 +108,10 @@ class ProductPricelistItem(models.Model):
             if product._name == "product.template":
                 product = product.product_variant_id
 
-            # Hook to get params: these params will be propagated
-            # to _prepare_seller to manage multiple seller currency
-            # conversion before seller fetching, see:
-            # https://github.com/OCA/product-attribute/pull/1311
-            params = product._get_select_seller_params(
-                self, date=None, quantity=0.0, product_id=None
-            )
-
             # _compute_price() is the only UI responsive method for @api.depends,
             # so we must go low level, see _get_product_price_rule_base for info
 
-            seller_price = self._fetch_supplierinfo_price(
-                product=product, params=params
-            )
+            seller_price = self._fetch_supplierinfo_price(product=product)
 
             discount["discount_field_name"] = "price_discount"
             discount["product_price"] = seller_price
@@ -168,7 +148,7 @@ class ProductPricelistItem(models.Model):
             return
         return super().set_percentage_change()
 
-    def _fetch_supplierinfo_price(self, product, params):
+    def _fetch_supplierinfo_price(self, product):
 
         """Low level method: call _select_seller and return
          a specific seller price before the pricelist-rule
@@ -178,9 +158,6 @@ class ProductPricelistItem(models.Model):
         rule that has to be searched on in order to fetch the
         proper requested related seller prices
 
-        :param dict params: params that will be propagated to
-        _select_seller and _prepare_seller methods
-
         :return float: seller price before rule computation
         """
 
@@ -189,18 +166,8 @@ class ProductPricelistItem(models.Model):
         )._select_seller(
             partner_id=self.filter_supplier_id,
             quantity=self.min_quantity,
-            date=None,
-            params=params,
+            date=None
         )
-
-        # use provided params or fetch
-        pricelist_currency = (
-            params.get("to_currency")
-            or self.currency_id
-            or self.pricelist_id.currency_id
-        )
-
-        company = params.get("company") or self.env.company
 
         if not seller_id:
             return 0.0
@@ -213,6 +180,10 @@ class ProductPricelistItem(models.Model):
         # return a dummy price of 1.0. This means that we have to
         # explicitly deal with currency rate (again) in case seller
         # currency is different.
+
+        pricelist_currency = self.currency_id or self.pricelist_id.currency_id
+        company = self.env.company
+
         seller_price = seller_id._get_seller_price(
             price_type=price_type,
             currency=pricelist_currency,
