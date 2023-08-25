@@ -14,7 +14,7 @@ publicWidget.registry.portalZipcodeAutocomplete = publicWidget.Widget.extend({
 
     events: {
         'change .country_select_change': '_onCountrySelectChange',
-        'click .submit_autocomplete': '_onSubmitZipcodeAutocomplete',
+        'submit .portal_form_submit': '_onSubmit',
     },
 
     init: function () {
@@ -51,18 +51,17 @@ publicWidget.registry.portalZipcodeAutocomplete = publicWidget.Widget.extend({
      * Manage UI-autocomplete events after an item has been focused.
      */
     _setZipcodeAutocompleteValues: function (event, ui){
+        // ui.item.value/ui.item.label are updated each
+        // time user select a "source item".
+        // This generally happen with a "click" on an
+        // autocomplete item or other events (like arrow down
+        // after ui-autocomplete pops-up). We could manage
+        // "change" event as well and make some "fallback
+        // shenanigans" to retrieve, let's say only state_id
+        // instead of cities when user insert a valid zipcode
+        // without focusing the widget, but for now we limit
+        // to case when ui.item is not null.
         if (ui.hasOwnProperty('item') && ui.item != null){
-            // ui.item.value/ui.item.label are updated each
-            // time user focus them by selecting a source item.
-            // This generally happen with a "click" on
-            // autocomplete item or other events (like arrow down
-            // after ui-autocomplete pops-up). We could manage
-            // the "change" ev and make some fallback shenanigans
-            // to retrieve, let's say only state_id instead of
-            // cities when user insert a valid zipcode without
-            // focusing the widget, but for now we limit to case
-            // when ui.item is not null.
-
             // Make an rpc by matching selected "label" with
             // "display_name" to retrieve other fields from city
             var self = this;
@@ -97,21 +96,21 @@ publicWidget.registry.portalZipcodeAutocomplete = publicWidget.Widget.extend({
      *  validate this field since it's value is a consequence of
      *  user choice on "zipcode" input, so we call write() to avoid
      *  loading huge number of zip records on html.
-     *  Despite skipping controller validation, the write() has to be
-     *  done on Submit to ensure data consistency.
-     *
-     *  Note:
-     *  This piece of code is not executed the _onSubmit event handler
-     *  because we don't really need to interact with that code.
-     *  Keeping it in a separate function should be a safer operation.
+     *  Despite skipping controller validation this query has to be
+     *  done on Submit (when all form fields passed validation) in
+     *  order to ensure data consistency in case of transaction rollback.
      */
-    _onSubmitZipcodeAutocomplete: function (ev) {
-        this._rpc({
-            route: '/my/account/on_submit_zipcode_autocomplete',
-            params: {
-                selected_res_city_zip_id: this.selected_res_city_zip_id,
-            }
+    _onSubmit: function (ev) {
+        var self = this;
+        var def = this._super.apply(this, arguments).then(function(r) {
+            self._rpc({
+                route: '/my/account/on_submit_zipcode_autocomplete',
+                params: {
+                    selected_res_city_zip_id: self.selected_res_city_zip_id,
+                }
+            });
         });
+        return def;
     },
 
     //--------------------------------------------------------------------------

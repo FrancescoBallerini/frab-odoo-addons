@@ -9,10 +9,9 @@
             <attribute name="class" add="portal_zipcode_autocomplete" separator=" "/>
         </xpath>
 
-        <!-- Add selector to catch click on submit.
-        We don't need to specifically extend _onSubmit ev handler: we can make queries on a normal click ev -->
+        <!-- Add selector to catch submit event -->
         <xpath expr="//form//button[@type='submit']" position="attributes">
-            <attribute name="class" add="submit_autocomplete" separator=" "/>
+            <attribute name="class" add="portal_form_submit" separator=" "/>
         </xpath>
 
         <!-- Add selector to catch country_id select change ev.
