@@ -30,6 +30,7 @@
                                 options="{'currency_field': 'currency_id'}"
                                 optional="show"
                             />
+
                         </group>
 
                         <div
@@ -51,8 +52,17 @@
                                 options="{'currency_field': 'currency_id'}"
                             />
                         </div>
-
+                        <group>
+                            <field
+                                name="product_pricelist_selling_price_taxed"
+                                string="Selling Price Taxed"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id'}"
+                                optional="show"
+                            />
+                        </group>
                     </group>
+
                     <div
                         class="alert alert-info"
                         role="alert"
@@ -92,7 +102,8 @@
                     name="context"
                     operation="python_dict"
                     key="compute_rule_selling_prices"
-                >True</attribute>
+                >True
+                </attribute>
             </xpath>
 
             <xpath
@@ -102,6 +113,14 @@
                 <field
                     name="product_pricelist_selling_price"
                     string="Selling Price"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                    optional="show"
+                    attrs="{'invisible': [('applied_on', 'not in', ['1_product', '0_product_variant'])]}"
+                />
+                <field
+                    name="product_pricelist_selling_price_taxed"
+                    string="Selling Price Taxed"
                     widget="monetary"
                     options="{'currency_field': 'currency_id'}"
                     optional="show"
@@ -135,7 +154,8 @@
             >
                 <attribute
                     name="options"
-                >{"no_open": True, "no_create": True, "no_edit": True}</attribute>
+                >{"no_open": True, "no_create": True, "no_edit": True}
+                </attribute>
             </xpath>
 
             <!-- product_tmpl_id and product_id are readonly: they will be automatically setup depending on the context. -->
@@ -186,7 +206,8 @@
             >
                 <attribute
                     name="options"
-                >{"no_open": True, "no_create": True, "no_edit": True}</attribute>
+                >{"no_open": True, "no_create": True, "no_edit": True}
+                </attribute>
             </xpath>
 
             <xpath

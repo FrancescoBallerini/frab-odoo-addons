@@ -73,6 +73,13 @@
                     options="{'currency_field': 'currency_id'}"
                     optional="show"
                 />
+                <field
+                    name="product_pricelist_selling_price_taxed"
+                    string="Selling Price Taxed"
+                    widget="monetary"
+                    options="{'currency_field': 'currency_id'}"
+                    optional="show"
+                />
             </xpath>
         </field>
     </record>
@@ -146,6 +153,13 @@
                                 options="{'currency_field': 'currency_id'}"
                                 optional="show"
                             />
+                            <field
+                                name="product_pricelist_selling_price_taxed"
+                                string="Selling Price Taxed"
+                                widget="monetary"
+                                options="{'currency_field': 'currency_id'}"
+                                optional="show"
+                            />
                             <field name="base" optional="hide" />
                             <field name="base_pricelist_id" optional="hide" />
                             <field name="percent_price" optional="hide" />
@@ -156,13 +170,6 @@
                                 optional="show"
                             />
                             <field name="min_quantity" optional="show" />
-                            <field
-                                name="product_pricelist_selling_price"
-                                string="Selling Price"
-                                widget="monetary"
-                                options="{'currency_field': 'currency_id'}"
-                                optional="show"
-                            />
                             <field name="date_start" optional="show" />
                             <field name="date_end" optional="show" />
                             <field name="company_id" invisible="True" optional="show" />

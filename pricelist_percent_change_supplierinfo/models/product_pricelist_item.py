@@ -21,6 +21,24 @@ class ProductPricelistItem(models.Model):
             # no need to call _compute_price(), actually it would show
             # inconsistent outcome because price would be computed twice
             self.product_pricelist_selling_price = product_price
+
+            # compute taxed selling price amount. In the context of
+            # a pricelist, as a convention we take the first tax
+            # linked to the product
+            def_tax_id = product.taxes_id[0] if product.taxes_id else None
+            taxed_amount = 0.00
+            if def_tax_id:
+                taxed_amount = def_tax_id._compute_amount(
+                    base_amount=self.product_pricelist_selling_price,
+                    price_unit=self.product_pricelist_selling_price,
+                    quantity=1.0,
+                    product=product,
+                )
+
+            self.product_pricelist_selling_price_taxed = (
+                self.product_pricelist_selling_price + taxed_amount
+            )
+
         else:
             return super()._set_product_pricelist_selling_price(
                 product_price=product_price, product=product
@@ -164,9 +182,7 @@ class ProductPricelistItem(models.Model):
         seller_id = product.with_context(
             override_min_qty=self.no_supplierinfo_min_quantity,
         )._select_seller(
-            partner_id=self.filter_supplier_id,
-            quantity=self.min_quantity,
-            date=None
+            partner_id=self.filter_supplier_id, quantity=self.min_quantity, date=None
         )
 
         if not seller_id:

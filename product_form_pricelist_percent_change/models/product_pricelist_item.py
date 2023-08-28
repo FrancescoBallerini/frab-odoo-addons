@@ -2,7 +2,6 @@ import logging
 import traceback
 
 from lxml import etree
-
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import float_is_zero
@@ -16,7 +15,15 @@ class ProductPricelistItem(models.Model):
     # UI Fields:
 
     product_pricelist_selling_price = fields.Float(
-        string="Selling Price", compute="_compute_product_pricelist_selling_price"
+        string="Selling Price",
+        compute="_compute_product_pricelist_selling_price",
+        digits=(2, 2),
+    )
+
+    product_pricelist_selling_price_taxed = fields.Float(
+        string="Selling Price Taxed",
+        compute="_compute_product_pricelist_selling_price",
+        digits=(2, 2),
     )
 
     percent_change_user_input = fields.Float(string="Set Discount %")
@@ -160,6 +167,23 @@ class ProductPricelistItem(models.Model):
 
         self.product_pricelist_selling_price = selling_price_rule
 
+        # compute taxed selling price amount. In the context of
+        # a pricelist, as a convention we take the first tax
+        # linked to the product
+        def_tax_id = product.taxes_id[0] if product.taxes_id else None
+        taxed_amount = 0.00
+        if def_tax_id:
+            taxed_amount = def_tax_id._compute_amount(
+                base_amount=self.product_pricelist_selling_price,
+                price_unit=self.product_pricelist_selling_price,
+                quantity=1.0,
+                product=product,
+            )
+
+        self.product_pricelist_selling_price_taxed = (
+            self.product_pricelist_selling_price + taxed_amount
+        )
+
     @api.depends(
         "pricelist_id",
         "product_tmpl_id",
@@ -191,6 +215,7 @@ class ProductPricelistItem(models.Model):
             # since it would give cacheMiss error
             for rule in self:
                 rule.product_pricelist_selling_price = 0.00
+                rule.product_pricelist_selling_price_taxed = 0.00
                 rule.product_has_variants = False
                 rule.recursion_error_warning = False
             return
@@ -201,6 +226,7 @@ class ProductPricelistItem(models.Model):
             # field 'dummy' values to avoid ValueError
 
             rule.product_pricelist_selling_price = 0.00
+            rule.product_pricelist_selling_price_taxed = 0.00
             rule.product_has_variants = False
             rule.recursion_error_warning = False
             pricelist = rule.pricelist_id
