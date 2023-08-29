@@ -1,23 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <template id="portal_my_details_location_autocomplete" inherit_id="portal.portal_my_details"
-              name="Portal Details Location Autocomplete">
+    <template
+        id="portal_my_details_location_autocomplete"
+        inherit_id="portal.portal_my_details"
+        name="Portal Details Location Autocomplete"
+    >
 
         <!-- Add selector to load widget portalZipcodeAutocomplete -->
         <xpath expr="//form" position="attributes">
-            <attribute name="class" add="portal_zipcode_autocomplete" separator=" "/>
+            <attribute name="class" add="portal_zipcode_autocomplete" separator=" " />
         </xpath>
 
         <!-- Add selector to catch submit event -->
         <xpath expr="//form//button[@type='submit']" position="attributes">
-            <attribute name="class" add="portal_form_submit" separator=" "/>
+            <attribute name="class" add="portal_form_submit" separator=" " />
         </xpath>
 
         <!-- Add selector to catch country_id select change ev.
         We will need to reload source and rebuild autocomplete in this case -->
         <xpath expr="//form//select[@name='country_id']" position="attributes">
-            <attribute name="t-attf-class" add="country_select_change" separator=" "/>
+            <attribute name="t-attf-class" add="country_select_change" separator=" " />
         </xpath>
 
     </template>

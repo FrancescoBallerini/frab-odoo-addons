@@ -5,7 +5,7 @@
     "version": "14.0.0.0.1",
     "category": "Product",
     "summary": """
-        Enable, on pricelists views, percentage change computation 
+        Enable, on pricelists views, percentage change computation
         and price simulation (only for rules applied at product level).
     """,
     "author": "Francesco Ballerini",

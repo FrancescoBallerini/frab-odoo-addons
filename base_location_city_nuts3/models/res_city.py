@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import api, fields, models
 from odoo.osv.expression import AND
 
 
@@ -23,8 +23,17 @@ class City(models.Model):
         for city in self:
             domain = [("level", "=", 3)]
             if city.country_id:
-                domain = AND([domain, [
-                    ("country_id", "=", city.country_id.id),
-                    ("name", "!=", "Extra-Regio NUTS 2")  # exclude dirty records from regions
-                ]])
+                domain = AND(
+                    [
+                        domain,
+                        [
+                            ("country_id", "=", city.country_id.id),
+                            (
+                                "name",
+                                "!=",
+                                "Extra-Regio NUTS 2",
+                            ),  # exclude dirty records from regions
+                        ],
+                    ]
+                )
             city.allowed_nut_ids = Nuts.search(domain)

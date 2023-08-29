@@ -6,7 +6,7 @@
     "category": "Product",
     "summary": """
         Enable, on pricelist views, percentage change computation and
-        price simulation, for rules based on supplierinfo prices (only 
+        price simulation, for rules based on supplierinfo prices (only
         for rules applied at product level). """,
     "author": "Francesco Ballerini",
     "support": "francescobl.lavoro@gmail.com",

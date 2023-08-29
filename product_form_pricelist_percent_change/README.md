@@ -1,16 +1,18 @@
 <div style="text-align:center;">
 <h1>Module Features</h1>
 
-This module extends <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist">product_form_pricelist</a>
+This module extends
+<a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist">product_form_pricelist</a>
 module by OCA (make sure you have it installed)
 
-After you install this module, it will unlock full access to product pricelist rule 
+After you install this module, it will unlock full access to product pricelist rule
 form-view accessible by product form-view
 
-
-A computed field 'Selling Price' has been added to show the price simulation for the active rule
+A computed field 'Selling Price' has been added to show the price simulation for the
+active rule
 
 <i>Feature available only for product-based rules</i>
+
 </div>
 
 ![demo_1.gif](static%2Fdescription%2Fdemo_1.gif)
@@ -32,19 +34,20 @@ set for you by applying the Percentage Change formula:<br/>
 where <b>SP is Selling Price recomputed on click</b> depending on the chosen <b>'Based On'</b>
 parameter (product sales price, cost, other pricelist...)
 
-
 <i>Feature available only for product-based rules</i>
 
-<i>The button is not visible on pseudo-records. Save record to access this feature if you create a new rule</i>
+<i>The button is not visible on pseudo-records. Save record to access this feature if
+you create a new rule</i>
+
 </div>
 
 ![demo_2.gif](static%2Fdescription%2Fdemo_2.gif)
 
 <div style="text-align:center;"><h3><i>These features are only available for pricelist-rules applied at product level </i></h3></div>
 
-**************
-<div style="font-size: 1.2em;">
+---
 
+<div style="font-size: 1.2em;">
 
 <h3>Usage</h3>
 <p>Be sure that you enabled <b>Advanced Pricelist Rules</b> in <b>Settings Menu</b></p>
@@ -54,8 +57,7 @@ parameter (product sales price, cost, other pricelist...)
 <p><b>Choose a product</b>, we will use a pricelist rule based on product <b>Cost</b></p>
 <p>You might need to add User Admin to 'Access to product costs' group to see product cost</p>
 
-![image](static/description/settings_2.png)
-![image](static/description/workflow_1.png)
+![image](static/description/settings_2.png) ![image](static/description/workflow_1.png)
 
 <p>In the product form-view check for <b>Sales Page</b> and scroll down to the <b>Pricelist Rules</b> table,
 this is a shortcut to define pricelist-rules at product level from the product form-view.
@@ -74,8 +76,8 @@ level' and
 
 ![image](static/description/workflow_3.png)
 
-<b>We want to sell product (which costs $1000) at $1450.
-</b>
+<b>We want to sell product (which costs $1000) at $1450. </b>
+
 <p>Provide the final selling price.</p>
 
 ![image](static/description/workflow_4.png)
@@ -91,16 +93,14 @@ shows the new Selling Price accordingly to pricelist-rule parameters.</p>
 
 </div>
 
-**************
+---
 
 <div style="font-size: 1.2em;">
 
-
 <h3>Other info</h3>
 
- 
-* <b>Product Variants:</b> not fully supported
-* <b>Module dependencies:</b> 
-  * <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist">product_form_pricelist</a>
-  * <a href="https://github.com/OCA/server-tools/tree/14.0/base_view_inheritance_extension">base_view_inheritance_extension</a>
-</div>
+- <b>Product Variants:</b> not fully supported
+- <b>Module dependencies:</b>
+  - <a href="https://github.com/OCA/product-attribute/tree/14.0/product_form_pricelist">product_form_pricelist</a>
+  - <a href="https://github.com/OCA/server-tools/tree/14.0/base_view_inheritance_extension">base_view_inheritance_extension</a>
+  </div>

@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data noupdate="1">
-        <record id="socket_timeout_setup_key" model="ir.config_parameter" forcecreate="0">
+        <record
+            id="socket_timeout_setup_key"
+            model="ir.config_parameter"
+            forcecreate="0"
+        >
             <field name="key">socket_timeout_setup.timeout_value</field>
             <field name="value">0</field>
         </record>

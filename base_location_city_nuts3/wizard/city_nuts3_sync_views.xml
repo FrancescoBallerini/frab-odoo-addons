@@ -6,48 +6,62 @@
         <field name="model">city.nuts3.sync</field>
         <field name="arch" type="xml">
             <form>
-                <h2>To allow synchronization the current database has to match following requirements:</h2>
-                <br/>
+                <h2
+                >To allow synchronization the current database has to match following requirements:</h2>
+                <br />
                 <div>
                     <ul>
                         <li>you have to download city records for a country, from
-                            <a href="https://github.com/OCA/partner-contact/tree/14.0/base_location_geonames_import"
-                               class="oe_link" target="_blank">
+                            <a
+                                href="https://github.com/OCA/partner-contact/tree/14.0/base_location_geonames_import"
+                                class="oe_link"
+                                target="_blank"
+                            >
                                 base_location_geonames_import
                             </a>(check module usage for
                             more info)
                         </li>
-                        <br/>
-                        <li>you also have to download NUTS data for all countries from <a
+                        <br />
+                        <li
+                        >you also have to download NUTS data for all countries from <a
                                 href="https://github.com/OCA/partner-contact/tree/14.0/base_location_nuts"
-                                class="oe_link" target="_blank">
+                                class="oe_link"
+                                target="_blank"
+                            >
                             base_location_nuts
                         </a> (check module usage for more info)
                         </li>
-                        <br/>
+                        <br />
                         <li>
                             On NUTS Items: for every country which for you want to map cities with NUTS 3, you already
                             must have synchronized level 4 NUTS data with Odoo state ids for that country
                             <span>
-                                <button name="click_step_3_hints"
-                                        type="object"
-                                        icon="fa-info btn-primary"/>
+                                <button
+                                    name="click_step_3_hints"
+                                    type="object"
+                                    icon="fa-info btn-primary"
+                                />
                             </span>
 
-                            <field name="show_step3_hints" invisible="1"/>
-                            <br/>
-                            <br/>
-                            <ul attrs="{'invisible': [('show_step3_hints', '=', False)]}">
+                            <field name="show_step3_hints" invisible="1" />
+                            <br />
+                            <br />
+                            <ul
+                                attrs="{'invisible': [('show_step3_hints', '=', False)]}"
+                            >
                                 <h5>Hints:</h5>
                                 <li>
                                     If country's states of your interest are covered by "Odoo Federal States" you might be able to
                                     automatically map country's level 4 NUTS with states by installing specific
                                     localization module for that country.
-                                    Check <a href="https://github.com/OCA?q=l10n&amp;type=all&amp;language=&amp;sort="
-                                             class="oe_link" target="_blank">OCA localization
+                                    Check <a
+                                        href="https://github.com/OCA?q=l10n&amp;type=all&amp;language=&amp;sort="
+                                        class="oe_link"
+                                        target="_blank"
+                                    >OCA localization
                                 </a> to find proper l10n repository
                                 </li>
-                                <br/>
+                                <br />
                                 <li>
                                     Otherwise you can either make a custom import or even set it manually from GUI.
                                     <b>To set manually from GUI:</b>
@@ -68,12 +82,12 @@
                 </div>
                 <footer>
                     <button
-                            name="run_city_nuts3_sync"
-                            type="object"
-                            class="btn-primary"
-                            string="Import"
+                        name="run_city_nuts3_sync"
+                        type="object"
+                        class="btn-primary"
+                        string="Import"
                     />
-                    <button special="cancel" string="Cancel" class="oe_link"/>
+                    <button special="cancel" string="Cancel" class="oe_link" />
                 </footer>
             </form>
         </field>
@@ -87,10 +101,10 @@
     </record>
 
     <menuitem
-            id="menu_action_city_nuts3_sync"
-            action="action_city_nuts3_sync"
-            parent="contacts.menu_localisation"
-            sequence="99"
+        id="menu_action_city_nuts3_sync"
+        action="action_city_nuts3_sync"
+        parent="contacts.menu_localisation"
+        sequence="99"
     />
 
 </odoo>
