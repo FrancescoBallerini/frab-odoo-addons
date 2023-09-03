@@ -42,6 +42,10 @@ class ProductPricelistItem(models.Model):
         compute="_compute_product_pricelist_selling_price"
     )
 
+    unable_to_retrieve_variant = fields.Boolean(
+        compute="_compute_product_pricelist_selling_price"
+    )
+
     show_percent_change_button = fields.Boolean(
         default=False,
         help="Technical field to compute button visibility. Rule buttons "
@@ -58,8 +62,7 @@ class ProductPricelistItem(models.Model):
         :param product: product linked to pricelist-rule
         :returns:
         - product price (computed by rule parameters)
-        - False if it's not possible to compute price rule
-        for selected product
+        - 0.00 if not able to compute
         """
         self.ensure_one()
 
@@ -184,6 +187,14 @@ class ProductPricelistItem(models.Model):
             self.product_pricelist_selling_price + taxed_amount
         )
 
+    def _reset_computed_vals(self):
+        """Hook: reset computed fields to avoid cacheMiss on recomputation"""
+        self.product_pricelist_selling_price = 0.00
+        self.product_pricelist_selling_price_taxed = 0.00
+        self.unable_to_retrieve_variant = 0.00
+        self.product_has_variants = False
+        self.recursion_error_warning = False
+
     @api.depends(
         "pricelist_id",
         "product_tmpl_id",
@@ -213,22 +224,17 @@ class ProductPricelistItem(models.Model):
             # Note that the cache still needs to retrieve some value, so we
             # cannot really bypass computation by self.env.remove_to_compute()
             # since it would give cacheMiss error
+            # todo hook to re-init fields
             for rule in self:
-                rule.product_pricelist_selling_price = 0.00
-                rule.product_pricelist_selling_price_taxed = 0.00
-                rule.product_has_variants = False
-                rule.recursion_error_warning = False
+                rule._reset_computed_vals()
             return
 
         for rule in self:
 
-            # as first operaton, assign possible non-stored
-            # field 'dummy' values to avoid ValueError
+            # as first operation, assign 'dummy' values to computed fields
+            # in order to avoid ValueError, CacheMiss and so on
+            rule._reset_computed_vals()
 
-            rule.product_pricelist_selling_price = 0.00
-            rule.product_pricelist_selling_price_taxed = 0.00
-            rule.product_has_variants = False
-            rule.recursion_error_warning = False
             pricelist = rule.pricelist_id
 
             allowed_base_rule = self._get_allowed_base_rule()
@@ -441,6 +447,10 @@ class ProductPricelistItem(models.Model):
 
     def _manage_percent_change_user_input_errors(self, discount_dict):
         """manage possible error on user input extendable"""
+
+        err_msg = discount_dict.get("error")
+        if err_msg:
+            raise UserError(err_msg)
 
         if self.percent_change_user_input == 0.00:
             # a possible missclick can lead to a 100% discount

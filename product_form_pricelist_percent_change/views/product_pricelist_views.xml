@@ -85,8 +85,18 @@
                     role="alert"
                     attrs="{'invisible': [('recursion_error_warning', '=', False)]}"
                 >
-                    <field name="recursion_error_warning" readonly="1" />
                 </div>
+                <field name="recursion_error_warning" invisible="1" />
+                <div
+                    colspan="2"
+                    style="max-width:95%;"
+                    class="alert alert-warning"
+                    role="alert"
+                    attrs="{'invisible': [('unable_to_retrieve_variant', '=', False)]}"
+                >Not able to compute price for this product, because variant cannot be retrieved.
+                    Hint: this usually happens when product is archived.
+                </div>
+                <field name="unable_to_retrieve_variant" invisible="1" />
             </xpath>
         </field>
     </record>

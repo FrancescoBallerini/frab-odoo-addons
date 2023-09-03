@@ -69,8 +69,7 @@ class ProductPricelistItem(models.Model):
 
         :returns:
         - product price (computed by rule parameters)
-        - False if it's not possible to compute price rule
-        for selected product
+        - 0.00 if not able to compute
         """
 
         product_price = super()._get_product_price_rule_base(product=product)
@@ -78,7 +77,21 @@ class ProductPricelistItem(models.Model):
         if self.compute_price == "formula" and self.base == "supplierinfo":
 
             if product._name == "product.template":
-                product = product.product_variant_id
+                # better to check for product.product_variant_id. In theory every
+                # product should have a dummy variant, but in some cases (e.g. when
+                # product is archived) it will not be able to retrieve it
+                if not product.product_variant_ids[:1]:
+                    # todo put this visible in form as well
+                    _logger.warning(
+                        "Not able to retrieve variant IDS for %s. "
+                        "Hint: this might happen while product is archived. " % product
+                    )
+                    # compute to `True`: show alert div on form
+                    self.unable_to_retrieve_variant = True
+                    # skip computation: return dummy price
+                    return 0.00
+
+                product = product.product_variant_ids[:1]
 
             # We prefer the usage of _compute_price() over _compute_price_rule()
             # (or other method that will be called on ProductPricelist) because
@@ -124,7 +137,23 @@ class ProductPricelistItem(models.Model):
         if self.compute_price == "formula" and self.base == "supplierinfo":
 
             if product._name == "product.template":
-                product = product.product_variant_id
+                # better to check for product.product_variant_id. In theory every
+                # product should have a dummy variant, but in some cases (e.g. when
+                # product is archived) it will not be able to retrieve it
+                if not product.product_variant_ids[:1]:
+                    # compute to `True`: show alert div on form
+                    self.unable_to_retrieve_variant = True
+                    # Compute a specific error message to be shown in this case:
+                    # otherwise if we just pass a dummy value of 0.00 it would
+                    # only trigger a generic ZeroDivisionError exception in the
+                    # error handler `_manage_percent_change_user_input_errors()`
+                    discount["error"] = (
+                        "Not able to retrieve variant IDS for %s. "
+                        "Hint: this might happen while product is archived. " % product
+                    )
+                    return discount
+
+                product = product.product_variant_ids[:1]
 
             # _compute_price() is the only UI responsive method for @api.depends,
             # so we must go low level, see _get_product_price_rule_base for info
