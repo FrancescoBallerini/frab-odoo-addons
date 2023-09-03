@@ -118,6 +118,7 @@ class ProductPricelistItem(models.Model):
                         to_currency=current_currency,
                         company=company_id,
                         date=fields.Date.today(),
+                        round=False,
                     )
 
                     product_price = converted_price
@@ -356,14 +357,15 @@ class ProductPricelistItem(models.Model):
                     if current_currency != product.currency_id:
                         current_currency = product.currency_id
 
-                    converted_price = self.base_pricelist_id.currency_id._convert(
-                        from_amount=product_price,
-                        to_currency=current_currency,
-                        company=company_id,
-                        date=fields.Date.today(),
-                    )
+                        converted_price = self.base_pricelist_id.currency_id._convert(
+                            from_amount=product_price,
+                            to_currency=current_currency,
+                            company=company_id,
+                            date=fields.Date.today(),
+                            round=False,
+                        )
 
-                    product_price = converted_price
+                        product_price = converted_price
 
                 except RecursionError:
                     warning = _(

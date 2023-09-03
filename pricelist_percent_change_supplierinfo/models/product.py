@@ -98,6 +98,7 @@ class ProductSupplierinfo(models.Model):
                     to_currency=to_currency.id,
                     company=company.id,
                     date=fields.Date.today(),
+                    round=False,
                 )
                 return requested_price_converted
         return requested_price
