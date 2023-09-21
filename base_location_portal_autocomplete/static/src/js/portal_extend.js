@@ -3,16 +3,13 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
 
     var core = require("web.core");
     var publicWidget = require("web.public.widget");
-
-    // Define 'portal.portal' as dependeny just to ensure portal
-    // init/start are executed before our public widget extension
-    var Portal = require("portal.portal");
+    require("portal.portal"); // Ensure portal init/start are executed before this extension
 
     publicWidget.registry.portalZipcodeAutocomplete = publicWidget.Widget.extend({
         selector: ".portal_zipcode_autocomplete",
 
         events: {
-            "change .country_select_change": "_onCountrySelectChange",
+            'change select[name="country_id"]': "_onCountryChange",
             "submit .portal_form_submit": "_onSubmit",
         },
 
@@ -42,7 +39,7 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
          * Re-fetching the source and rebuild autocomplete or destroy it
          * if there is no source (res.city.zip) for selected country.
          */
-        _onCountrySelectChange: function (ev) {
+        _onCountryChange: function (ev) {
             this._updateZipcodeAutocompleteUI();
         },
 

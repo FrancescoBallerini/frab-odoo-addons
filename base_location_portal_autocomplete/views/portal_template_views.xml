@@ -17,11 +17,5 @@
             <attribute name="class" add="portal_form_submit" separator=" " />
         </xpath>
 
-        <!-- Add selector to catch country_id select change ev.
-        We will need to reload source and rebuild autocomplete in this case -->
-        <xpath expr="//form//select[@name='country_id']" position="attributes">
-            <attribute name="t-attf-class" add="country_select_change" separator=" " />
-        </xpath>
-
     </template>
 </odoo>
