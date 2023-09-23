@@ -29,7 +29,7 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
          */
         start: function () {
             var def = this._super.apply(this, arguments);
-            this._updateZipcodeAutocompleteUI();
+            this._autocompleteRefresh();
             return def;
         },
 
@@ -43,13 +43,13 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
          * if there is no source (res.city.zip) for selected country.
          */
         _onCountryChange: function (ev) {
-            this._updateZipcodeAutocompleteUI();
+            this._autocompleteRefresh();
         },
 
         /**
          * Manage UI-autocomplete events after an item has been focused.
          */
-        _setZipcodeAutocompleteValues: function (event, ui) {
+        _updateFields: function (event, ui) {
             // ui.item.value/ui.item.label are updated each
             // time user select a "source item".
             // This generally happen with a "click" on an
@@ -118,17 +118,16 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
 
         /**
          * Call method to update source, then manage ui-autocomplete:
-         * if a source length is returned, build the ui-autocomplete,
-         * else destroy it, in case it was active before.
+         * if a source length is returned, load the widget and attach
+         * it to zip input. If no source is returned for selected
+         * country destroy widget, in case it was active before.
          */
-        _updateZipcodeAutocompleteUI: function () {
+        _autocompleteRefresh: function () {
             var country_id = parseInt($("select[name='country_id']").val());
             var self = this;
             // update source
-            this._updateZipcodeAutocompleteSource(country_id).then(function (
-                sourceList
-            ) {
-                if (Object.keys(sourceList).length > 0) {
+            this._fetchAutocompleteSource(country_id).then(function (acList) {
+                if (Object.keys(acList).length > 0) {
                     var position = {collision: "flip"};
                     var minLength = 3;
                     if (config.device.isMobile || config.device.isMobileDevice) {
@@ -138,16 +137,23 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
                     }
                     // append autocomplete to zipcode input
                     $("input[name='zip']").autocomplete({
-                        source: sourceList,
+                        source: function (request, response) {
+                            var matches = $.map(acList, function (acItem) {
+                                if (acItem.value.indexOf(request.term) === 0) {
+                                    return acItem;
+                                }
+                            });
+                            response(matches);
+                        },
                         minLength: minLength,
                         position: position,
                         select: function (event, ui) {
                             // set vals in form-view on item select
-                            self._setZipcodeAutocompleteValues(event, ui);
+                            self._updateFields(event, ui);
                         },
                     });
-                } else if ($("input[name='zip']").autocomplete("instance")) {
-                    $("input[name='zip']").autocomplete("destroy");
+                } else if ($("input[name='zipcode']").autocomplete("instance")) {
+                    $("input[name='zipcode']").autocomplete("destroy");
                 }
             });
         },
@@ -155,7 +161,7 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
         /**
          * Get autocomplete source by calling python controller
          */
-        _updateZipcodeAutocompleteSource: function (countryID) {
+        _fetchAutocompleteSource: function (countryID) {
             var def = this._rpc({
                 route: "/shop/address/get_zipcode_autocomplete_source",
                 params: {
