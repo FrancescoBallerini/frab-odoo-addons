@@ -3,12 +3,12 @@
     <template
         id="assets_frontend"
         inherit_id="web.assets_frontend"
-        name="Website Portal: My Account Location Autocomplete"
+        name="Website Sale: Checkout Address Location Autocomplete"
     >
         <xpath expr="//script[last()]" position="after">
             <script
                 type="text/javascript"
-                src="/base_location_portal_autocomplete/static/src/js/location_autocomplete_portal.js"
+                src="/base_location_website_sale_autocomplete/static/src/js/location_autocomplete_website_sale.js"
             />
         </xpath>
     </template>

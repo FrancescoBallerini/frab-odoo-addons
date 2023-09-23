@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="address_checkout_location_autocomplete"
+        inherit_id="website_sale.address"
+        name="Website Address Checkout Location Autocomplete"
+    >
+
+        <!-- Add selector to load widget WebsiteSaleZipcodeAutocomplete -->
+        <xpath expr="//form" position="attributes">
+            <attribute
+                name="class"
+                add="website_sale_zipcode_autocomplete"
+                separator=" "
+            />
+        </xpath>
+
+        <!-- Add selector to catch submit event -->
+        <xpath
+            expr="//form//a[@role='button'][hasclass('a-submit')]"
+            position="attributes"
+        >
+            <attribute name="class" add="checkout_address_form_submit" separator=" " />
+        </xpath>
+
+    </template>
+</odoo>

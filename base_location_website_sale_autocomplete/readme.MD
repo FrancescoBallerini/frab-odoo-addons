@@ -1,6 +1,6 @@
 ## Description
 
-This module allows Portal "My Account" Form-View to automatically fill
+This module allows Checkout Address Form-View to automatically fill
 
 
 - `state` select
@@ -25,7 +25,7 @@ manually and only install [base_location](https://github.com/OCA/partner-contact
 is not required for this module (only [base_location](https://github.com/OCA/partner-contact/tree/14.0/base_location) is).
 
 ## Usage
-Once you have properly configured your DB, Portal "My Account" Form-View will have new feature:
+Once you have properly configured your DB, Checkout Address Form-View will have new feature:
 
 - when a user fill `zipcode` input a dropdown will be shown: displayed values are cities sharing
 the zipcode input, based on selected country

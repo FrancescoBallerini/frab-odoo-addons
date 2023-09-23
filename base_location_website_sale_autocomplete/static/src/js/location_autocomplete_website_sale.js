@@ -1,16 +1,19 @@
-odoo.define("base_location_portal_autocomplete.portal_extend", function (require) {
+odoo.define("base_location_website_sale_autocomplete.website_sale_extend", function (
+    require
+) {
     "use strict";
 
     var core = require("web.core");
+    var config = require("web.config");
     var publicWidget = require("web.public.widget");
-    require("portal.portal"); // Ensure portal init/start are executed before this extension
+    require("website_sale.website_sale");
 
-    publicWidget.registry.portalZipcodeAutocomplete = publicWidget.Widget.extend({
-        selector: ".portal_zipcode_autocomplete",
+    publicWidget.registry.WebsiteSaleZipcodeAutocomplete = publicWidget.Widget.extend({
+        selector: ".website_sale_zipcode_autocomplete",
 
         events: {
             'change select[name="country_id"]': "_onCountryChange",
-            "submit .portal_form_submit": "_onSubmit",
+            "submit .checkout_address_form_submit": "_onSubmit",
         },
 
         init: function () {
@@ -100,7 +103,7 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
             var self = this;
             var def = this._super.apply(this, arguments).then(function (r) {
                 self._rpc({
-                    route: "/my/account/on_submit_zipcode_autocomplete",
+                    route: "/shop/address/on_submit_zipcode_autocomplete",
                     params: {
                         selected_res_city_zip_id: self.selected_res_city_zip_id,
                     },
@@ -126,17 +129,25 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
                 sourceList
             ) {
                 if (Object.keys(sourceList).length > 0) {
+                    var position = {collision: "flip"};
+                    var minLength = 3;
+                    if (config.device.isMobile || config.device.isMobileDevice) {
+                        // on small screen avoid covering input while user still typing
+                        // isMobile true when screen-size: XS/VSM/SM
+                        minLength = 5;
+                    }
                     // append autocomplete to zipcode input
-                    $("input[name='zipcode']").autocomplete({
+                    $("input[name='zip']").autocomplete({
                         source: sourceList,
-                        minLength: 3,
+                        minLength: minLength,
+                        position: position,
                         select: function (event, ui) {
                             // set vals in form-view on item select
                             self._setZipcodeAutocompleteValues(event, ui);
                         },
                     });
-                } else if ($("input[name='zipcode']").autocomplete("instance")) {
-                    $("input[name='zipcode']").autocomplete("destroy");
+                } else if ($("input[name='zip']").autocomplete("instance")) {
+                    $("input[name='zip']").autocomplete("destroy");
                 }
             });
         },
@@ -146,7 +157,7 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
          */
         _updateZipcodeAutocompleteSource: function (countryID) {
             var def = this._rpc({
-                route: "/my/account/get_zipcode_autocomplete_source",
+                route: "/shop/address/get_zipcode_autocomplete_source",
                 params: {
                     country_id: countryID,
                 },

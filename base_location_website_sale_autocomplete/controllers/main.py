@@ -1,13 +1,13 @@
-from odoo.addons.portal.controllers.portal import CustomerPortal
+from odoo.addons.website_sale.controllers.main import WebsiteSale
 from odoo.http import request, route
 
 
-class PortalMyAccountLocationAutocomplete(CustomerPortal):
-    @route("/my/account/get_zipcode_autocomplete_source", type="json", auth="user")
+class WebsiteSaleLocationAutocomplete(WebsiteSale):
+    @route("/shop/address/get_zipcode_autocomplete_source", type="json", auth="user")
     def get_zipcode_autocomplete_source(self, country_id):
 
         """Call this function:
-         - after `start()` of widget `portalZipcodeAutocomplete`
+         - after `start()` of widget `WebsiteSaleZipcodeAutocomplete`
          - when frontend user change the selected `country_id`
 
         :param int country_id: `id` of selected country when this :meth: is called
@@ -21,7 +21,7 @@ class PortalMyAccountLocationAutocomplete(CustomerPortal):
             "autocomplete_source": autocomplete_source,
         }
 
-    @route("/my/account/on_submit_zipcode_autocomplete", type="json", auth="user")
+    @route("/shop/address/on_submit_zipcode_autocomplete", type="json", auth="user")
     def on_submit_zipcode_autocomplete(self, selected_res_city_zip_id):
 
         """Set `zip_id` field on backend with a different controller
