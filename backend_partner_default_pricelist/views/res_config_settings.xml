@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="name">res.config.settings.default.pricelist.backend</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='pricing_setting_container']" position="inside">
+                <div
+                    class="col-12 col-lg-6 o_setting_box"
+                    id="backend_default_pricelist"
+                    attrs="{'invisible': [('group_product_pricelist' ,'=', False)]}"
+                >
+                    <div
+                        class="o_setting_left_pane"
+                        id="backend_default_pricelist_left"
+                    />
+                    <div
+                        class="o_setting_right_pane"
+                        id="backend_default_pricelist_right"
+                    >
+                        <label for="backend_pricelist_default_id" />
+                        <br />
+                        <div class="text-muted">
+                            Automatically assigned at backend created partners.
+                        </div>
+                        <field
+                            name="backend_pricelist_default_id"
+                            options="{'no_open': True, 'no_edit': True, 'no_create': True}"
+                            style="width:75%"
+                        />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
