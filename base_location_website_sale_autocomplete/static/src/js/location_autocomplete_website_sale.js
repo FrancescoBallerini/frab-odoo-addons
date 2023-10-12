@@ -19,6 +19,13 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
         init: function () {
             this._super.apply(this, arguments);
             this.selected_res_city_zip_id = false;
+            // must wait for _changeCountry() debounce, otherwise autocomplete
+            // widget will load on "zip" node render position (which will be
+            // changed after 500ms) causing overlap on the user input
+            this._autocompleteRefresh = _.debounce(
+                this._autocompleteRefresh.bind(this),
+                500
+            );
         },
 
         /**
@@ -152,8 +159,8 @@ odoo.define("base_location_website_sale_autocomplete.website_sale_extend", funct
                             self._updateFields(event, ui);
                         },
                     });
-                } else if ($("input[name='zipcode']").autocomplete("instance")) {
-                    $("input[name='zipcode']").autocomplete("destroy");
+                } else if ($("input[name='zip']").autocomplete("instance")) {
+                    $("input[name='zip']").autocomplete("destroy");
                 }
             });
         },
