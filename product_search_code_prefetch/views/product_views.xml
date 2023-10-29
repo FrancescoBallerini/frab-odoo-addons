@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Product Template: SearchView -->
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="name">product.template.search</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//search//field[@name='name']" position="attributes">
+                <attribute name="context">{'product_code_prefetch': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Variant: SearchView -->
+    <record id="product_search_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view" />
+        <field name="mode">extension</field>
+        <field name="arch" type="xml">
+            <xpath expr="//search//field[@name='name']" position="attributes">
+                <attribute name="context">{'product_code_prefetch': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
