@@ -1,15 +1,20 @@
 ## Description
 
-Before installing this module if you need to set a Default Pricelist for new partners
-you must to rely on Pricelist model sequence. That means that you have to place your
-Pricelist on the top of "Pricelists" view and hope for the best.
+This module allows to set a default pricelist in the pricing settings menu: chosen
+pricelist will be selected by default on the form-view when creating a new partner in
+backend.
 
-This module allows to set a Default Pricelist in the Pricing Settings menu: selected
-pricelist will be selected by default when you create a new partner in backend.
+Before installing this module you must rely on the sequence of the pricelists view (the
+first pricelist will be taken as default). Not only is this dangerous but it also
+doesn't let you define different choices between backend and e-Commerce.
+
+Check
+[website_partner_default_pricelist](https://github.com/FrancescoBallerini/odoo14_custom_modules/tree/main/website_partner_default_pricelist)
+for the same feature in front-end side.
 
 ## Configuration
 
-- Find section Settings > Pricing. Enable "Pricelists" flag in case it's not active.
+- Settings > Pricing
 
 - Search for "Default Pricelist: backend" dropdown and simply select the default
   pricelist.

@@ -1,43 +1,44 @@
 ## Description
 
-Before installing this module if you need to set a Default Pricelist for new partners
-you must to rely on Pricelist model sequence. That means that you have to place your
-Pricelist on the top of "Pricelists" view and hope for the best.
+This module allows to set a default pricelist for e-Commerce customers.
 
-This module allows to set a Default Pricelist in the Website Settings menu: selected
-pricelist will be selected by default when a new Customer signup on your website.
+Selected pricelist will be assigned by default to new customers when they signup on your
+website (only b2c: check
+[Usage](https://github.com/FrancescoBallerini/odoo14_custom_module_private/tree/main/website_partner_default_pricelist#usage)
+section for more info).
+
+Before installing this module you must rely on the sequence of the pricelists view (the
+first pricelist will be taken as default). Not only is this dangerous but it also
+doesn't let you define different choices between backend and e-Commerce.
+
+Check
+[backend_partner_default_pricelist](https://github.com/FrancescoBallerini/odoo14_custom_modules/tree/main/backend_partner_default_pricelist)
+for the same feature in the backend side.
 
 ## Configuration
 
-- Enable "Pricelists" flag in case it's not active. You can find it on section
-  Settings > Pricing.
+- General Settings > Website
 
-- Find section General Settings > Website.
-
-- In case you manage more than one website, be sure that you selected the right one in
-  General Settings menu. You can also manage this setting by navigating to Website >
-  Configuration and selecting a website.
+- In case you manage more than one website be sure that you selected the right one in
+  General Settings menu. You can also manage this setting by navigating to Website
+  Menus > Configuration and selecting a specific website (it's equivalent).
 
 - Once you selected a website, Search for "Default Pricelist: e-Commerce" dropdown and
   simply select the default pricelist for selected website.
 
 ## Usage
 
-### B2C: Free Signup - Public Users
+### Public Users (not impacted)
 
-This module does not impact "Public Partner" pricelist, this means that non-logged users
-will display prices accordingly to "Public Partner" pricelist. In case you allow Public
-Users to make order and submit address from checkout, it's worth mentioning that default
-selected pricelist will be assigned, BUT only after they make the first login. In order
-to properly manage this workflow, you might want to manually re-assign pricelist on the
-"Public User", to align it with e-Commerce default pricelist defined in Website
-Settings.
+Not impacted by module: non-logged users still display prices accordingly to Public
+Partner's pricelist.
 
-### B2C: Free Signup - Logged Users
+### B2C: Free Signup (impacted)
 
-Selected pricelist will be set on the Partner as soon as he completes the signup.
+B2C signup is impacted by module behaviour: selected default pricelist will be set on
+the Partner as soon as he completes the signup.
 
-### B2B: on invitation
+### B2B: on invitation (not impacted)
 
-When you give Portal Access to a contact from backend the Pricelist will NOT be
-overridden by e-Commerce default pricelist.
+Not impacted by module: when giving portal access by sending an invitation, contacts'
+Pricelist will NOT be overridden.
