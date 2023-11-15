@@ -16,13 +16,5 @@
             />
         </xpath>
 
-        <!-- Add selector to catch submit event -->
-        <xpath
-            expr="//form//a[@role='button'][hasclass('a-submit')]"
-            position="attributes"
-        >
-            <attribute name="class" add="checkout_address_form_submit" separator=" " />
-        </xpath>
-
     </template>
 </odoo>

@@ -12,10 +12,5 @@
             <attribute name="class" add="portal_zipcode_autocomplete" separator=" " />
         </xpath>
 
-        <!-- Add selector to catch submit event -->
-        <xpath expr="//form//button[@type='submit']" position="attributes">
-            <attribute name="class" add="portal_form_submit" separator=" " />
-        </xpath>
-
     </template>
 </odoo>

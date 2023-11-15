@@ -11,7 +11,6 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
 
         events: {
             'change select[name="country_id"]': "_onCountryChange",
-            "submit .portal_form_submit": "_onSubmit",
         },
 
         init: function () {
@@ -93,22 +92,23 @@ odoo.define("base_location_portal_autocomplete.portal_extend", function (require
          *  validate this field since it's value is a consequence of
          *  user choice on "zipcode" input, so we call write() to avoid
          *  loading huge number of zip records on html.
-         *  Despite skipping controller validation this query has to be
-         *  done on Submit (when all form fields passed validation) in
-         *  order to ensure data consistency in case of transaction rollback.
+         *  ToDo implement: it has to be done asyncronously before/after
+             submit to avoid "concurrent update error", though it doesn't
+             recognize apply() as a _super property so it raises:
+             Uncaught TypeError: Cannot read properties of undefined (reading 'apply')
          */
-        _onSubmit: function (ev) {
-            var self = this;
-            var def = this._super.apply(this, arguments).then(function (r) {
-                self._rpc({
-                    route: "/my/account/on_submit_zipcode_autocomplete",
-                    params: {
-                        selected_res_city_zip_id: self.selected_res_city_zip_id,
-                    },
-                });
-            });
-            return def;
-        },
+        //        _onSubmit: function (ev) {
+        //            var self = this;
+        //            var def = this._super.apply(this, arguments).then(function (r) {
+        //                self._rpc({
+        //                    route: "/my/account/on_submit_zipcode_autocomplete",
+        //                    params: {
+        //                        selected_res_city_zip_id: self.selected_res_city_zip_id,
+        //                    },
+        //                });
+        //            });
+        //            return def;
+        //        },
 
         //--------------------------------------------------------------------------
         // Private

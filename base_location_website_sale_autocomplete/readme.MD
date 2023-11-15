@@ -42,3 +42,8 @@ change this behaviour, it has to be done from code.
 
 * Dropdown menu is loaded on GUI by making usage of jquery-ui library integrated in the odoo14 framework.
 For browser compatibility you can check library version [here](https://github.com/odoo/odoo/blob/14.0/addons/web/static/lib/jquery.ui/jquery-ui.js).
+
+## Road Map
+
+Set `zip_id` backend field on submit, if an element was selected from dropdown.
+(The `zip` field is correctly computed, only `zip_id` is missing if set from frontend)
