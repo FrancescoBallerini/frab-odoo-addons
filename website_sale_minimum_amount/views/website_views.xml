@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_website_form_sale_minimum_amount" model="ir.ui.view">
+        <field name="name">website.form.sale.minimum.amount</field>
+        <field name="model">website</field>
+        <field name="inherit_id" ref="website.view_website_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='other']" position="inside">
+                <field name="website_sale_min_amount" />
+                <field name="website_sale_min_amount_type" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

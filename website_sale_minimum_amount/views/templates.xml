@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+	<template
+        id="sale_minmum_amount"
+        inherit_id="website_sale.cart"
+        name="Website Sale Min Amount Alert"
+    >
+		<xpath expr="//t[@t-call='website_sale.cart_lines']" position="after">
+            <t
+                t-set="order"
+                t-value="website_sale_order or request.website.sale_get_order()"
+            />
+            <t
+                t-set="order_amount"
+                t-value="order.amount_untaxed if request.website.website_sale_min_amount_type == 'tax_excluded' else order.amount_total"
+            />
+            <t
+                t-set="required_amount"
+                t-value="request.website.website_sale_min_amount"
+            />
+            <t t-if="order.order_line and order_amount &lt; required_amount">
+                <div class="alert alert-info" role="alert">Order minimum is <span
+                        t-field="request.website.website_sale_min_amount"
+                    /> (<span
+                        t-field="request.website.website_sale_min_amount_type"
+                    />)</div>
+            </t>
+        </xpath>
+	</template>
+</odoo>

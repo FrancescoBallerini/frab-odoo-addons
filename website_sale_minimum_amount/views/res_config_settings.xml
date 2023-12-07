@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_website_sale_min_amount" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="name">res.config.settings.website.sale.min.amount</field>
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='website_settings']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box" id="website_sale_min_amount">
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <label for="website_sale_min_amount" />
+                        <br />
+                        <field name="website_sale_min_amount" />
+                    </div>
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <label for="website_sale_min_amount_type" />
+                        <br />
+                        <field name="website_sale_min_amount_type" />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
