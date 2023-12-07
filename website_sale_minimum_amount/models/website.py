@@ -4,7 +4,7 @@ from odoo import fields, models
 class Website(models.Model):
     _inherit = "website"
 
-    website_sale_min_amount = fields.Float(string="Website Sale Minimum Amount")
+    website_sale_min_amount = fields.Monetary(string="Website Sale Minimum Amount")
 
     website_sale_min_amount_type = fields.Selection(
         string="Minimum Amount Type",

@@ -1,4 +1,5 @@
-from odoo import http
+import datetime
+
 from odoo.addons.website_sale.controllers.main import WebsiteSale as WebsiteSale
 from odoo.http import request
 
@@ -11,7 +12,14 @@ class WebsiteSaleMinimumAmount(WebsiteSale):
             if request.website.website_sale_min_amount_type == "tax_excluded"
             else order.amount_total
         )
-        required_amount = request.website.website_sale_min_amount
+
+        required_amount = order.pricelist_id.currency_id._convert(
+            from_amount=request.website.website_sale_min_amount,
+            to_currency=order.company_id.currency_id,
+            company=order.company_id,
+            date=datetime.date.today(),
+            round=False,
+        )
 
         if order_amount < required_amount:
             return request.redirect("/shop/cart")

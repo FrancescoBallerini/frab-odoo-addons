@@ -2,9 +2,9 @@
 <odoo>
 
 	<template
-        id="sale_minmum_amount"
+        id="website_sale_minimum_amount_alert"
         inherit_id="website_sale.cart"
-        name="Website Sale Min Amount Alert"
+        name="Website Sale Minimum Amount Alert"
     >
 		<xpath expr="//t[@t-call='website_sale.cart_lines']" position="after">
             <t
@@ -17,11 +17,12 @@
             />
             <t
                 t-set="required_amount"
-                t-value="request.website.website_sale_min_amount"
+                t-value="order.pricelist_id.currency_id._convert(from_amount=request.website.website_sale_min_amount, to_currency=order.company_id.currency_id, company=order.company_id, date=datetime.date.today(), round=False)"
             />
             <t t-if="order.order_line and order_amount &lt; required_amount">
                 <div class="alert alert-info" role="alert">Order minimum is <span
-                        t-field="request.website.website_sale_min_amount"
+                        t-esc="required_amount"
+                        t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"
                     /> (<span
                         t-field="request.website.website_sale_min_amount_type"
                     />)</div>
