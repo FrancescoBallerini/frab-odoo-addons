@@ -22,7 +22,7 @@
                 />
             </t>
             <t t-elif="not order.currency_id or not order.company_id.currency_id">
-                <!-- Check order to avoid assert errors in _convert() method (currency will not
+                <!-- Check order to avoid AssertionError in _convert() method (currency will not
                 be detected if there is no order). The "elif" may be avoided: it will prevent error
                 in case of missing currency from order or company, but if we have an order we also
                 should have a currency (because pricelist is required on order) and definitely a
