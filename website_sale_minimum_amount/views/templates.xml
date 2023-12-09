@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-	<template
+    <template
         id="website_sale_minimum_amount_alert"
         inherit_id="website_sale.cart"
         name="Website Sale Minimum Amount Alert"
     >
-		<xpath expr="//t[@t-call='website_sale.cart_lines']" position="after">
+        <xpath expr="//t[@t-call='website_sale.cart_lines']" position="after">
             <t
                 t-set="order"
                 t-value="website_sale_order or request.website.sale_get_order()"
@@ -15,18 +15,33 @@
                 t-set="order_amount"
                 t-value="order.amount_untaxed if request.website.website_sale_min_amount_type == 'tax_excluded' else order.amount_total"
             />
-            <t
-                t-set="required_amount"
-                t-value="order.pricelist_id.currency_id._convert(from_amount=request.website.website_sale_min_amount, to_currency=order.company_id.currency_id, company=order.company_id, date=datetime.date.today(), round=False)"
-            />
+            <t t-if="order and order.currency_id and order.company_id.currency_id">
+                <t
+                    t-set="required_amount"
+                    t-value="order.currency_id._convert(from_amount=request.website.website_sale_min_amount, to_currency=order.company_id.currency_id, company=order.company_id, date=datetime.date.today(), round=False)"
+                />
+            </t>
+            <t t-elif="not order.currency_id or not order.company_id.currency_id">
+                <!-- Check order to avoid assert errors in _convert() method (currency will not
+                be detected if there is no order). The "elif" may be avoided: it will prevent error
+                in case of missing currency from order or company, but if we have an order we also
+                should have a currency (because pricelist is required on order) and definitely a
+                company currency.
+                But, just to be sure, simply avoid conversion if some _convert() arg is missing.. -->
+                <t
+                    t-set="required_amount"
+                    t-value="request.website.website_sale_min_amount_type"
+                />
+            </t>
             <t t-if="order.order_line and order_amount &lt; required_amount">
-                <div class="alert alert-info" role="alert">Order minimum is <span
+                <div class="alert alert-info" role="alert">Order minimum is
+                    <span
                         t-esc="required_amount"
                         t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"
-                    /> (<span
-                        t-field="request.website.website_sale_min_amount_type"
-                    />)</div>
+                    />
+                    (<span t-field="request.website.website_sale_min_amount_type" />)
+                </div>
             </t>
         </xpath>
-	</template>
+    </template>
 </odoo>

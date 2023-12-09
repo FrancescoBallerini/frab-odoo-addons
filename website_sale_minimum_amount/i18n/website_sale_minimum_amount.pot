@@ -45,7 +45,7 @@ msgid "Minimum Amount Type"
 msgstr ""
 
 #. module: website_sale_minimum_amount
-#: model_terms:ir.ui.view,arch_db:website_sale_minimum_amount.sale_minmum_amount
+#: model_terms:ir.ui.view,arch_db:website_sale_minimum_amount.website_sale_minimum_amount_alert
 msgid "Order minimum is"
 msgstr ""
 
