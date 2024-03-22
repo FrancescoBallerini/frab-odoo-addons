@@ -11,7 +11,7 @@ class WebsiteSaleProductSearchPrefetch(WebsiteSale):
             ctx = request.context
             request.context = dict(ctx, product_code_prefetch=True)
         return super(WebsiteSaleProductSearchPrefetch, self).shop(
-            page=page, category=category, brand=brand, search=search, **post
+            page=page, category=category, brand=brand, ppg=ppg, search=search, **post
         )
 
     @http.route()
@@ -21,5 +21,5 @@ class WebsiteSaleProductSearchPrefetch(WebsiteSale):
             ctx = request.context
             request.context = dict(ctx, product_code_prefetch=True)
         return super(WebsiteSaleProductSearchPrefetch, self).products_autocomplete(
-            term=term, options=options, kwargs=kwargs
+            term=term, options=options, **kwargs
         )
