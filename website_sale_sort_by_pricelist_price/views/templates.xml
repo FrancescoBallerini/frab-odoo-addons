@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="sort_by_pricelist_price"
+        inherit_id="website_sale.sort"
+        customize_show="True"
+        name="Sort by - Pricelist Price"
+    >
+    <xpath
+            expr="//div[hasclass('dropdown_sorty_by')]//div[@role='menu']"
+            position="attributes"
+        >
+            <attribute name="class" add="sorty_by_dropdown_hyperlinks" separator=" " />
+        </xpath>
+    </template>
+
+    <!-- todo remove if not used anymore. Now it's done in JS so it doesn't override the t-value -->
+    <!--    <template id="sort_by_pricelist_price" inherit_id="website_sale.sort" customize_show="True" name="Sort by Pricelist Price">-->
+    <!--    &lt;!&ndash; Workaround that allows to Sort By Price: compatible with pricelists prices &ndash;&gt;-->
+    <!--    <xpath expr="//t[@t-set='website_sale_sortable']" position="attributes">-->
+    <!--        <attribute name="t-value">[-->
+    <!--            (list_price_desc_label, 'sortby_price_asc'),-->
+    <!--            (list_price_asc_label, 'sortby_price_desc'),-->
+    <!--            (name_asc_label, 'name asc'),-->
+    <!--            (name_desc_label, 'name desc')-->
+    <!--        ]</attribute>-->
+    <!--    </xpath>-->
+    <!--    </template>-->
+
+</odoo>
