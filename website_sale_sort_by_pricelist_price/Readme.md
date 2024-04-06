@@ -7,16 +7,14 @@ compatibility.
 
 ## Usage
 
-In your shop page click 'Customize' menu you will find a new option <b>Sort By -
-Pricelist Price</b> which is enabled by default at module installation.
+- The installation of this module will automatically enable the compatibility with
+  `Pricelist Price` when using Sort By Button on the e-Commerce.
 
-To restore the original behaviour you can either disable the option or uninstall the
-module.
-
-## Note
-
-This module requires to install
-[product_sort_by_price_base](https://github.com/FrancescoBallerini/odoo14_custom_modules/product_sort_by_price_base)
+- Sort By Button will prioritize the `Pricelist Price` over `Sales Price`. However, if
+  some products are configured by only having a static `Sales Price` and no
+  `Pricelist Price` (no pricelist rule matching the product for the active pricelist)
+  those products will still be correctly ordered as if the `Sales Price` was the
+  `Pricelist Price` in this case.
 
 ## Roadmap
 

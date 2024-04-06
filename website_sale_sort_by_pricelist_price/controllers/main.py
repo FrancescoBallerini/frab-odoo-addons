@@ -3,6 +3,10 @@ from odoo.addons.http_routing.models.ir_http import slug
 from odoo.addons.website_sale.controllers.main import TableCompute, WebsiteSale
 from odoo.http import request
 
+SORT_BY_PRICE_ASC_KEYS = ["list_price asc"]
+SORT_BY_PRICE_DESC_KEYS = ["list_price desc"]
+SORT_BY_PRICE_KEYS = SORT_BY_PRICE_ASC_KEYS + SORT_BY_PRICE_DESC_KEYS
+
 
 class WebsiteSaleSortByPricelistPrice(WebsiteSale):
     @http.route()
@@ -10,29 +14,26 @@ class WebsiteSaleSortByPricelistPrice(WebsiteSale):
         response = super(WebsiteSaleSortByPricelistPrice, self).shop(
             page=page, category=category, search=search, ppg=ppg, **post
         )
-        order = post.get("order")
-        if order and any(
-            sortby_filter in order
-            for sortby_filter in ["sortby_price_asc", "sortby_price_desc"]
-        ):
-            Product = search_product = request.env["product.template"].with_context(
-                bin_size=True
-            )
+        # check if an "order by price" has been requested
+        sort_by_option = post.get("order") or request.params.get("order")
+        if sort_by_option and sort_by_option in SORT_BY_PRICE_KEYS:
+            # Make another search() that will override the recordset of the first
+            # search based on `list_price`: this search() will receive the `order`
+            # param by context, which will specify the sort type (asc/desc) if a
+            # price sorting option has been selected.
+            # The ORM method ProductTemplate.search() has been patched so it will
+            # execute a python sort by (instead of ORM sort by) when receiving
+            # one of these keys
+            Product = request.env["product.template"].with_context(bin_size=True)
             attrib_values = response.qcontext.get("attrib_values", [])
             domain = self._get_search_domain(
                 search=search, category=category, attrib_values=attrib_values
             )
-            # if `sortby_price_asc` or `sortby_price_desc` filter is found in post execute
-            # the patched ORM search() which will done a sortby in python instead of using ORM.
-            # See Base module ProductTemplate.search() implementation.
-            if "sortby_price_asc" in order:
-                search_product = Product.with_context(sortby_price_asc=True).search(
-                    domain
-                )
-            elif "sortby_price_desc" in order:
-                search_product = Product.with_context(sortby_price_desc=True).search(
-                    domain
-                )
+            sort_by_option_propagation = {sort_by_option: True}
+            # propagate `request.env.context` as well as it's contains active pricelist ID
+            search_product = Product.with_context(
+                request.env.context, **sort_by_option_propagation
+            ).search(domain)
             # we have ordered products: need to update the offset. The following code request
             # a new pager, update the offset and update qweb context for the render
             url = "/shop"
