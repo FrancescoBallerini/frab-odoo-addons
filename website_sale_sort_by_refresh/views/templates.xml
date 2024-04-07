@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Sort By options -->
+
+    <template
+        id="sort_by_anchors_skip_refresh"
+        inherit_id="website_sale.products"
+        name="Sort By Anchors Skip Refresh"
+        customize_show="False"
+        active="True"
+    >
+        <xpath expr="//t[@t-foreach='website_sale_sortable']/a" position="attributes">
+            <attribute name="class" add="skip_sort_by_refresh" separator=" " />
+        </xpath>
+    </template>
+
+    <!-- Pager numbers -->
+
+    <template
+        id="pager_anchors_skip_refresh"
+        inherit_id="portal.pager"
+        name="Pager Anchors Skip Refresh"
+        customize_show="False"
+        active="True"
+    >
+        <xpath expr="//ul//li[1]//a" position="attributes">
+            <attribute name="t-attf-class" add="skip_sort_by_refresh" separator=" " />
+        </xpath>
+        <xpath expr="//ul//t[@t-as='page']/li/a" position="attributes">
+            <attribute name="t-attf-class" add="skip_sort_by_refresh" separator=" " />
+        </xpath>
+        <xpath expr="//ul//li[2]//a" position="attributes">
+            <attribute name="t-attf-class" add="skip_sort_by_refresh" separator=" " />
+        </xpath>
+    </template>
+
+</odoo>

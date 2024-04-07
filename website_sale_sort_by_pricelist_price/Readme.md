@@ -16,6 +16,12 @@ compatibility.
   those products will still be correctly ordered as if the `Sales Price` was the
   `Pricelist Price` in this case.
 
+- If you manage an e-Commerce with thousands of products some Sort By queries (e.g.
+  categories storing about 1000+ products) might be really taxing for performance when
+  sorting by `Pricelist Price`. This is not really an issue that we can solve directly,
+  but you might be interested into this module as well as a partial workaround:
+  [website_sale_sort_by_refresh](https://github.com/FrancescoBallerini/odoo14_custom_modules/website_sale_sort_by_refresh)
+
 ## Roadmap
 
 - compatibility with product variant prices
