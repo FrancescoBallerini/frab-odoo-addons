@@ -5,7 +5,7 @@
 
     <template
         id="sort_by_anchors_skip_refresh"
-        inherit_id="website_sale.products"
+        inherit_id="website_sale.sort"
         name="Sort By Anchors Skip Refresh"
         customize_show="False"
         active="True"
