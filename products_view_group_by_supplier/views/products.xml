@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- Product Template: TreeView -->
+    <record id="product_template_tree_view_group_by_supplier" model="ir.ui.view">
+        <field name="name">product.template.product.tree.group.by.supplier</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="seller_ids_group_by" invisible="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Template: SearchView -->
+    <record id="product_template_search_view_group_by_supplier" model="ir.ui.view">
+        <field name="name">product.template.search.group.by.supplier</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//search//filter[@name='categ_id']" position="after">
+                <filter
+                    name="supplier_groupby"
+                    string="Suppliers"
+                    context="{'group_by': 'seller_ids_group_by'}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
