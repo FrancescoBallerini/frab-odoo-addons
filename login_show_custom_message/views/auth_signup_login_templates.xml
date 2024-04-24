@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+        id="web_login_show_custom_message"
+        inherit_id="web.login"
+        name="Web Login Show Custom Message"
+    >
+        <xpath expr="//form[hasclass('oe_login_form')]" position="before">
+            <div t-raw="request.website.login_custom_message" />
+        </xpath>
+    </template>
+
+    <template
+        id="auth_signup_show_custom_message"
+        inherit_id="auth_signup.signup"
+        name="Auth Signup Show Custom Message"
+    >
+        <xpath expr="//form[hasclass('oe_signup_form')]" position="before">
+            <div t-raw="request.website.signup_custom_message" />
+        </xpath>
+    </template>
+
+</odoo>

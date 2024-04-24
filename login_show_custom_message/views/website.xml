@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record
+            id="view_website_form_website_show_custom_login_message"
+            model="ir.ui.view"
+        >
+            <field name="name">website.form.show.custom.login.message</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="login_message" string="Login Message">
+                        <group>
+                            <field name="login_custom_message" />
+                            <field name="signup_custom_message" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
