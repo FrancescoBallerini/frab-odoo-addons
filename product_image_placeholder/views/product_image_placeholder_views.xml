@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_product_image_placeholder_form" model="ir.ui.view">
+        <field name="name">product.image.placeholder.form</field>
+        <field name="model">product.image.placeholder</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" required="1" />
+                    <field name="sequence" required="1" />
+                    <field name="image_placeholder" widget="image" required="1" />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_product_image_placeholder_kanban" model="ir.ui.view">
+        <field name="name">product.image.placeholder.tree</field>
+        <field name="model">product.image.placeholder</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name" />
+                <field name="sequence" widget="handle" />
+                <field name="image_placeholder" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <center
+                                class="oe_title"
+                                style="text-align:center;font-weight:bold;"
+                            ><field name="name" />
+                            <hr />
+                            </center>
+                            <center>
+                                <field name="image_placeholder" widget="image" />
+                            </center>
+                            <!-- Allow to quickly change sequence by dragging kanban record -->
+                            <center invisible="1">
+                                <field name="sequence" widget="handle" />
+                            </center>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_product_image_placeholder" model="ir.actions.act_window">
+        <field name="name">Product Image Placeholders</field>
+        <field name="res_model">product.image.placeholder</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <menuitem
+        id="menu_product_image_placeholder_submenu"
+        name="Product Image Placeholders"
+        parent="base.menu_custom"
+        sequence="99"
+    />
+
+    <menuitem
+        id="menu_product_image_placeholder"
+        name="Product Image Placeholders"
+        parent="product_image_placeholder.menu_product_image_placeholder_submenu"
+        action="action_product_image_placeholder"
+    />
+
+</odoo>
