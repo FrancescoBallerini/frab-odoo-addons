@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template
+            id="assets_backend"
+            name="ListView Make All Fields Optional"
+            inherit_id="web.assets_backend"
+        >
+            <xpath expr="." position="inside">
+                <script
+                    type="text/javascript"
+                    src="/listview_make_all_fields_optional/static/src/js/list_renderer.js"
+                />
+                <script
+                    type="text/javascript"
+                    src="/listview_make_all_fields_optional/static/src/js/list_controller.js"
+                />
+            </xpath>
+        </template>
+    </data>
+</odoo>
