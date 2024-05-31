@@ -11,10 +11,6 @@
                     type="text/javascript"
                     src="/listview_make_all_fields_optional/static/src/js/list_renderer.js"
                 />
-                <script
-                    type="text/javascript"
-                    src="/listview_make_all_fields_optional/static/src/js/list_controller.js"
-                />
             </xpath>
         </template>
     </data>
