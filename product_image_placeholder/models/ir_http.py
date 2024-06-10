@@ -6,7 +6,7 @@ PRODUCT_IMAGE_FIELDS = [
     "image_1920",
     "image_1024",
     "image_512",
-    "image_128",
+    "image_256",
     "image_128",
 ]
 
