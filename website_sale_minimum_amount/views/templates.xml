@@ -39,7 +39,14 @@
                         t-esc="required_amount"
                         t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"
                     />
-                    (<span t-field="request.website.website_sale_min_amount_type" />)
+                    <t t-if="request.website.website_sale_min_amount_type">
+                        (<span
+                            t-field="request.website.website_sale_min_amount_type"
+                        />)
+                    </t>
+                    <t t-else="">
+                        (Tax included)
+                    </t>
                 </div>
             </t>
         </xpath>
