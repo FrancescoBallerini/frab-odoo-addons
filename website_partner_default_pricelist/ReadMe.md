@@ -12,7 +12,7 @@ first pricelist will be taken as default). Not only is this dangerous but it als
 doesn't let you define different choices between backend and e-Commerce.
 
 Check
-[backend_partner_default_pricelist](https://github.com/FrancescoBallerini/odoo14_custom_modules/tree/main/backend_partner_default_pricelist)
+[backend_partner_default_pricelist](https://github.com/FrancescoBallerini/frab-odoo-addons/tree/main/backend_partner_default_pricelist)
 for the same feature in the backend side.
 
 ## Configuration
