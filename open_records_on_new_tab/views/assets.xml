@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="Open Records on New Tab Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/open_records_on_new_tab/static/src/js/abstract_controller.js"/>
+            <script type="text/javascript" src="/open_records_on_new_tab/static/src/js/list_renderer.js"/>
+            <script type="text/javascript" src="/open_records_on_new_tab/static/src/js/kanban_record.js"/>
+        </xpath>
+    </template>
+</odoo>
