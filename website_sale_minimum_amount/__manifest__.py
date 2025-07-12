@@ -1,10 +1,11 @@
 {
     "name": "Website Sale: Minimum Amount",
-    "version": "14.0.0.0.1",
+    "version": "14.0.1.0.0",
     "depends": [
         "website_sale",
     ],
     "author": "Francesco Ballerini",
+    "website": "https://github.com/FrancescoBallerini",
     "summary": """
         Set a required minimum amount for website sale orders.
     """,

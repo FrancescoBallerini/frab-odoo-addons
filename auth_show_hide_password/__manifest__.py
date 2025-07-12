@@ -1,11 +1,11 @@
 {
     "name": "Authentication Show Hide Password",
-    "version": "14.0.0.0.1",
+    "version": "14.0.1.0.0",
     "depends": [
         "auth_signup",
     ],
-    "author": "Odoo Community Association (OCA), Francesco Ballerini",
-    "website": "https://github.com/OCA/server-auth",
+    "author": "Francesco Ballerini",
+    "website": "https://github.com/FrancescoBallerini",
     "data": [
         "views/assets.xml",
         "views/auth_signup_login_templates.xml",

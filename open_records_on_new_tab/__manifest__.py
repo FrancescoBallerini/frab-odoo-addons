@@ -16,7 +16,7 @@
     'author': "Francesco Ballerini",
     'website': "https://github.com/FrancescoBallerini",
     'category': 'Tools',
-    'version': '14.0.0.0.4',
+    'version': '14.0.1.0.0',
     'license': 'LGPL-3',
 
     'depends': ['base', 'web'],

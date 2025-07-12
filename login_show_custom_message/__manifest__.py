@@ -4,12 +4,13 @@
         Show custom message in login and signup by setting
         html fields in website configuration.
     """,
-    "version": "14.0.0.0.1",
+    "version": "14.0.1.0.0",
     "depends": [
         "website",
         "auth_signup",
     ],
     "author": "Francesco Ballerini",
+    "website": "https://github.com/FrancescoBallerini",
     "data": [
         "views/auth_signup_login_templates.xml",
         "views/website.xml",

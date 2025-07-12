@@ -1,8 +1,9 @@
 {
     "name": "Website Sale: Sort By Refresh",
-    "version": "14.0.0.0.1",
+    "version": "14.0.1.0.0",
     "depends": ["website_sale", "portal"],
     "author": "Francesco Ballerini",
+    "website": "https://github.com/FrancescoBallerini",
     "description": """
         Disable Sort By button on page reload.
     """,
