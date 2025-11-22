@@ -18,5 +18,5 @@
     "data": [],
     "application": False,
     "installable": True,
-    "license": "LGPL-3",
+    "license": "AGPL-3",
 }
